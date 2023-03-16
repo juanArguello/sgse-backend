@@ -5,7 +5,12 @@
 package com.sgse.dao;
 
 import com.sgse.entities.Cliente;
+import com.sgse.resources.Paginacion;
+
 import java.util.List;
+
+import javax.persistence.TypedQuery;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,10 +39,34 @@ public class ClienteDaoImpl implements ClienteDao{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Cliente> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Cliente").list();
+        return sessionFactory.getCurrentSession().createQuery("from Cliente  s order by s.id asc", Cliente.class).getResultList();
     }
+    
+    public Paginacion<Cliente> getClientesPaginado(int numeroPagina, int tamanhoPagina) {
+		int ultimoNumeroPagina;
+		Long totalRegistros;
+		totalRegistros = sessionFactory.getCurrentSession()
+				.createQuery("SELECT COUNT(c.id) from Cliente c", Long.class)
+				.getSingleResult();
+		if (totalRegistros % tamanhoPagina == 0) {
+			ultimoNumeroPagina = (int) (totalRegistros / tamanhoPagina);
+		} else {
+			ultimoNumeroPagina = (int) (totalRegistros / tamanhoPagina) + 1;
+		}
+		TypedQuery<Cliente> query = sessionFactory.getCurrentSession().createQuery("from Cliente c order by c.id asc",
+				Cliente.class);
+
+		query.setFirstResult((numeroPagina - 1) * tamanhoPagina);
+		query.setMaxResults(tamanhoPagina);
+		Paginacion<Cliente> resultado = new Paginacion<>();
+		resultado.setActualNumeroPagina(numeroPagina);
+		resultado.setTamanhoPagina(tamanhoPagina);
+		resultado.setUltimoNumeroPagina(ultimoNumeroPagina);
+		resultado.setTotalRegistros(totalRegistros);
+		resultado.setRegistros(query.getResultList());
+		return resultado;
+	}
 
     @Override
     public void update(Cliente cliente) {

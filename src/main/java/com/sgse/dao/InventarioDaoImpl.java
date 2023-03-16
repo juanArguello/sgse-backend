@@ -33,9 +33,8 @@ public class InventarioDaoImpl implements InventarioDao{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Inventario> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Inventario").list();
+        return sessionFactory.getCurrentSession().createQuery("from Inventario i order by i.id asc", Inventario.class).getResultList();
     }
 
     @Override

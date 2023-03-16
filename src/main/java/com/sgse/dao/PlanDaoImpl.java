@@ -35,9 +35,8 @@ public class PlanDaoImpl implements PlanDao{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Plan> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Plan").list();
+        return sessionFactory.getCurrentSession().createQuery("from Plan p order by p.id asc", Plan.class).getResultList();
     }
         
     @Override

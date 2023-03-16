@@ -4,7 +4,12 @@
 package com.sgse.dao;
 
 import com.sgse.entities.Usuario;
+import com.sgse.resources.Paginacion;
+
 import java.util.List;
+
+import javax.persistence.TypedQuery;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +59,34 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
     @Override
     public List<Usuario> findAll() {
-        return getSession()
+        return sessionFactory.getCurrentSession()
         		.createQuery("from Usuario u order by u.id asc", Usuario.class).getResultList();
     }
+    
+    public Paginacion<Usuario> getUsuariosPaginado(int numeroPagina, int tamanhoPagina) {
+		int ultimoNumeroPagina;
+		Long totalRegistros;
+		totalRegistros = sessionFactory.getCurrentSession()
+				.createQuery("SELECT COUNT(u.id) from Usuario u", Long.class)
+				.getSingleResult();
+		if (totalRegistros % tamanhoPagina == 0) {
+			ultimoNumeroPagina = (int) (totalRegistros / tamanhoPagina);
+		} else {
+			ultimoNumeroPagina = (int) (totalRegistros / tamanhoPagina) + 1;
+		}
+		TypedQuery<Usuario> query = sessionFactory.getCurrentSession().createQuery("from Usuario u order by u.id asc",
+				Usuario.class);
+
+		query.setFirstResult((numeroPagina - 1) * tamanhoPagina);
+		query.setMaxResults(tamanhoPagina);
+		Paginacion<Usuario> resultado = new Paginacion<>();
+		resultado.setActualNumeroPagina(numeroPagina);
+		resultado.setTamanhoPagina(tamanhoPagina);
+		resultado.setUltimoNumeroPagina(ultimoNumeroPagina);
+		resultado.setTotalRegistros(totalRegistros);
+		resultado.setRegistros(query.getResultList());
+		return resultado;
+	}
 
     @Override
     public void update(Usuario usuario) {

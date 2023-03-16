@@ -33,9 +33,8 @@ public class EmpresaDaoImpl implements EmpresaDao{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Empresa> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Empresa").list();
+        return sessionFactory.getCurrentSession().createQuery("from Empresa e order by e.id asc", Empresa.class).getResultList();
     }
 
     @Override

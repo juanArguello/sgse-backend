@@ -5,6 +5,8 @@ package com.sgse.service;
 
 import com.sgse.dao.UsuarioDao;
 import com.sgse.entities.Usuario;
+import com.sgse.resources.Paginacion;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,12 @@ public class UsuarioServiceImpl implements UsuarioService{
     public List<Usuario> findAll() {
         return usuarioDao.findAll();
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Paginacion<Usuario> getUsuariosPaginado(int numeroPagina, int tamanhoPagina) {
+		return usuarioDao.getUsuariosPaginado(numeroPagina, tamanhoPagina);
+	}
 
     @Override
     @Transactional

@@ -20,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -39,6 +40,7 @@ public class Permisos implements Serializable{
     private Integer id;
     
     @NotEmpty(message = "no puede estar vacio")
+    @Size(min = 4, max = 12, message = "el tamaño tiene que estar entre 4 y 12")
     @Column(name = "nombre",unique = true)
     private String nombre;
     

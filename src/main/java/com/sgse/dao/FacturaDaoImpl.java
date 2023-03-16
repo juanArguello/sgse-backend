@@ -33,9 +33,8 @@ public class FacturaDaoImpl implements FacturaDao{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Factura> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Factura").list();
+        return sessionFactory.getCurrentSession().createQuery("from Factura f order by f.id asc", Factura.class).getResultList();
     }
 
     @Override

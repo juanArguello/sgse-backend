@@ -4,6 +4,8 @@
 package com.sgse.dao;
 
 import com.sgse.entities.Cliente;
+import com.sgse.resources.Paginacion;
+
 import java.util.List;
 
 /**
@@ -16,6 +18,7 @@ public interface ClienteDao {
     public void create(Cliente cliente);
     public Cliente findById(int id);
     public List<Cliente> findAll();
+    public Paginacion<Cliente> getClientesPaginado(int numeroPagina, int tamanhoPagina);
     public void update(Cliente cliente);
     public void delete(int id);
     public int cantidadClientes();

@@ -33,9 +33,8 @@ public class SeguroDaoImpl implements SeguroDao{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Seguro> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Seguro").list();
+        return sessionFactory.getCurrentSession().createQuery("from Seguro s order by s.id asc", Seguro.class).getResultList();
     }
 
     @Override

@@ -5,6 +5,7 @@ package com.sgse.service;
 
 import com.sgse.dao.PermisoDao;
 import com.sgse.entities.Permisos;
+import com.sgse.resources.Paginacion;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service(value = "permisoService")
 public class PermisoServiceImpl implements PermisoService{
-
+	
     @Autowired
     private PermisoDao permisoDao;
     
@@ -39,6 +40,12 @@ public class PermisoServiceImpl implements PermisoService{
     public List<Permisos> findAll() {
         return permisoDao.findAll();
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Paginacion<Permisos> getPermisosPaginado(int numeroPagina, int tamanhoPagina) {
+		return permisoDao.getPermisosPaginado(numeroPagina, tamanhoPagina);
+	}
 
     @Override
     @Transactional
@@ -57,6 +64,7 @@ public class PermisoServiceImpl implements PermisoService{
     public int cantidadFilas() {
         return permisoDao.cantidadFilas();
     }
+    
 
     
 }

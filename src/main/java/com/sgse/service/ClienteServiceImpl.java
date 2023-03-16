@@ -5,6 +5,8 @@ package com.sgse.service;
 
 import com.sgse.dao.ClienteDao;
 import com.sgse.entities.Cliente;
+import com.sgse.resources.Paginacion;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,12 @@ public class ClienteServiceImpl implements ClienteService{
     public List<Cliente> findAll() {
         return clienteDao.findAll();
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Paginacion<Cliente> getClientesPaginado(int numeroPagina, int tamanhoPagina) {
+		return clienteDao.getClientesPaginado(numeroPagina, tamanhoPagina);
+	}
 
     @Override
     @Transactional

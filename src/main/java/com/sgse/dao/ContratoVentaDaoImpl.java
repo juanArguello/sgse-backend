@@ -33,9 +33,8 @@ public class ContratoVentaDaoImpl implements ContratoVentaDao{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<ContratoVenta> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from ContratoVenta").list();
+        return sessionFactory.getCurrentSession().createQuery("from ContratoVenta cv order by cv.id asc", ContratoVenta.class).getResultList();
     }
 
     @Override

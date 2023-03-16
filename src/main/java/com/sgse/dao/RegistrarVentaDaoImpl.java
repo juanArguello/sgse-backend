@@ -33,9 +33,9 @@ public class RegistrarVentaDaoImpl implements RegistrarVentaDao{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<RegistrarVenta> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from RegistrarVenta").list();
+        return sessionFactory.getCurrentSession().createQuery("from RegistrarVenta  rv order by rv.id asc", RegistrarVenta
+        		.class).getResultList();
     }
 
     @Override

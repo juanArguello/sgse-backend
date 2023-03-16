@@ -33,9 +33,8 @@ public class SucursalDaoImpl implements SucursalDao{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Sucursal> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Sucursal").list();
+        return sessionFactory.getCurrentSession().createQuery("from Sucursal s order by s.id asc", Sucursal.class).getResultList();
     }
 
     @Override

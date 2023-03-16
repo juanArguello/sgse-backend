@@ -33,9 +33,8 @@ public class SalonDaoImpl implements SalonDao{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Salon> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Salon").list();
+        return sessionFactory.getCurrentSession().createQuery("from Salon s order by s.id asc", Salon.class).getResultList();
     }
 
     @Override

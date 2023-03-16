@@ -32,9 +32,8 @@ public class CompraDaoImpl implements CompraDao{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Compra> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Compra").list();
+        return sessionFactory.getCurrentSession().createQuery("from Compra c order by c.id asc", Compra.class).getResultList();
     }
 
     @Override

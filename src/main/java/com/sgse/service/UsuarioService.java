@@ -4,6 +4,8 @@
 package com.sgse.service;
 
 import com.sgse.entities.Usuario;
+import com.sgse.resources.Paginacion;
+
 import java.util.List;
 
 /**
@@ -18,6 +20,7 @@ public interface UsuarioService {
     public Usuario findByUsername(String username);
     public Usuario findByEmail(String correo);
     public List<Usuario> findAll();
+    public Paginacion<Usuario> getUsuariosPaginado(int numeroPagina, int tamanhoPagina);
     public void update(Usuario usuario);
     public void delete(int id);
     public int cantidadFilas();

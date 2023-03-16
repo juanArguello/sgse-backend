@@ -33,9 +33,8 @@ public class ReporteDaoImpl implements ReporteDao{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Reporte> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Reporte").list();
+        return sessionFactory.getCurrentSession().createQuery("from Reporte r order by r.id asc", Reporte.class).getResultList();
     }
 
     @Override

@@ -103,9 +103,11 @@ public class UsuarioDaoImpl implements UsuarioDao{
     }
 
     @Override
-    public int cantidadFilas() {
-        return ((Number) getSession().createQuery("SELECT COUNT(*) FROM Usuario").uniqueResult()).intValue();
-    }
+	public int cantidadFilas() {
+		return sessionFactory.getCurrentSession()
+				.createQuery("select count(*) from Usuario u",Long.class).getSingleResult()
+				.intValue();
+	}
   
     
 }

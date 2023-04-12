@@ -24,8 +24,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
  */
 @Service(value = "mailService")
 public class MailServiceImpl implements MailService {
-
-    private JavaMailSenderImpl javaMailSenderImpl;
+	
+	private JavaMailSenderImpl javaMailSenderImpl;
 
     private String texto;
 

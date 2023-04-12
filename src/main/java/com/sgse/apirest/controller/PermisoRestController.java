@@ -145,4 +145,10 @@ public class PermisoRestController {
         permisoService.delete(Integer.valueOf(id)); // Elimina el permiso de acuerdo al ID
     }
     
+    @GetMapping(path = "/permisos/cantidad",produces = "text/plain")
+    @ResponseStatus(HttpStatus.OK)
+    public String cantidadPermisos() {
+        return String.valueOf(permisoService.cantidadFilas());
+    }
+    
 }

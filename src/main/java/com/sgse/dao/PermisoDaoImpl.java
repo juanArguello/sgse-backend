@@ -80,7 +80,8 @@ public class PermisoDaoImpl implements PermisoDao {
 
 	@Override
 	public int cantidadFilas() {
-		return ((Number) sessionFactory.getCurrentSession().createQuery("SELECT COUNT(*) FROM Permisos").uniqueResult())
+		return sessionFactory.getCurrentSession()
+				.createQuery("select count(*) from Permisos p",Long.class).getSingleResult()
 				.intValue();
 	}
 

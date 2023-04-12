@@ -63,11 +63,11 @@ public class UsuarioRestController {
         }
         
         usuario.setFechaIngreso(new Date());
-        usuario.setEstado("activo");
+        usuario.setEnabled(true);
         Contrasenha contrasenha = new Contrasenha(); 
-        String contrasenhaPlana = usuario.getContrasenha(); // Se obtiene la contraseña plana del usuario
+        String contrasenhaPlana = usuario.getPassword(); // Se obtiene la contraseña plana del usuario
         // Setear la contraseña cifrandolo con algoritmo bCryt
-        usuario.setContrasenha(contrasenha.cifrarContrasenha(contrasenhaPlana));
+        usuario.setPassword(contrasenha.cifrarContrasenha(contrasenhaPlana));
         
         try {
             usuarioService.create(usuario); // crea el usuario
@@ -80,11 +80,11 @@ public class UsuarioRestController {
         // enviar el email con el nombreUsuario y contraseña
         String texto = "<p>Bienvenido " + usuario.getNombre() + " " + usuario.getApellido() + "</p>"
             + "<p>al staff  de la empresa Futuro." + "</p>"+
-            "<p>El nombre de su Usuario es: " + usuario.getNombreUsuario() + "</p>"+
+            "<p>El nombre de su Usuario es: " + usuario.getUsername() + "</p>"+
             "<p>La contraseña es: " + contrasenhaPlana + "</p>";
         mailService.enviarEmail(usuario.getEmail(), "Registro de Usuario exitoso!", texto);
         
-        map.put("mensaje", "El usuario "+usuario.getNombreUsuario()+" ha sido creado con éxito");
+        map.put("mensaje", "El usuario "+usuario.getUsername()+" ha sido creado con éxito");
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
@@ -163,9 +163,9 @@ public class UsuarioRestController {
         user.setEmail(usuario.getEmail());
         user.setDireccion(usuario.getDireccion());
         user.setTelefono(usuario.getTelefono());
-        user.setEstado(usuario.getEstado());
-        user.setNombreUsuario(usuario.getNombreUsuario());
-        user.setContrasenha(usuario.getContrasenha());
+        user.setEnabled(usuario.getEnabled());
+        user.setUsername(usuario.getUsername());
+        user.setPassword(usuario.getPassword());
         user.setFacturaList(usuario.getFacturaList());
         user.setContratoVentaList(usuario.getContratoVentaList());
         user.setRegistrarVentaList(usuario.getRegistrarVentaList());
@@ -179,7 +179,7 @@ public class UsuarioRestController {
             return new ResponseEntity<>(map,HttpStatus.INTERNAL_SERVER_ERROR);
         }
         
-        map.put("mensaje", "El usuario "+user.getNombreUsuario()+" ha sido actualizado con éxito");
+        map.put("mensaje", "El usuario "+user.getUsername()+" ha sido actualizado con éxito");
         return new ResponseEntity<>(map,HttpStatus.NO_CONTENT);
     }
     
@@ -190,11 +190,10 @@ public class UsuarioRestController {
         usuarioService.delete(Integer.valueOf(id)); // Elimina el usuario de acuerdo al ID
     }
     
-    //@Secured("ROLE_ADMINISTRADOR")
     @GetMapping(path = "/usuarios/cantidad",produces = "text/plain")
     @ResponseStatus(HttpStatus.OK)
-    public int cantidadUsuarios() {
-        return usuarioService.cantidadFilas();
+    public String cantidadUsuarios() {
+        return String.valueOf(usuarioService.cantidadFilas());
     }
     
 }

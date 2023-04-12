@@ -58,8 +58,9 @@ public class RolDaoImpl implements RolDao{
     }
     
     @Override
-    public int cantidadFilas() {
-        return ((Number) sessionFactory.getCurrentSession()
-                .createQuery("SELECT COUNT(*) FROM Rol").uniqueResult()).intValue();
-    }
+	public int cantidadFilas() {
+		return sessionFactory.getCurrentSession()
+				.createQuery("select count(*) from Rol r",Long.class).getSingleResult()
+				.intValue();
+	}
 }

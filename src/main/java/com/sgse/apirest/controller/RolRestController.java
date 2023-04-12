@@ -137,4 +137,10 @@ public class RolRestController {
         rolService.delete(Integer.valueOf(id)); // Elimina el rol de acuerdo al ID
     }
     
+    @GetMapping(path = "/roles/cantidad",produces = "text/plain")
+    @ResponseStatus(HttpStatus.OK)
+    public String cantidadRoles() {
+        return String.valueOf(rolService.cantidadFilas());
+    }
+    
 }

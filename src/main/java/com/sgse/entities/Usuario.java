@@ -72,16 +72,16 @@ public class Usuario implements Serializable {
     private Date fechaIngreso;
     
     @Column(name = "estado")
-    private String estado;
+    private boolean enabled;
     
     @NotEmpty(message = "no puede estar vacio")
     @Column(name = "nombre_usuario",unique = true,nullable = false)
-    private String nombreUsuario;
+    private String username;
     
     @NotEmpty(message = "no puede estar vacio")
-    @Column(name = "contrasenha")
+    @Column(name = "contrasenha", length = 60)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String contrasenha;
+    private String password;
     
     @JsonIgnoreProperties({"idUsuario","hibernateLazyInitializer","handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
@@ -183,28 +183,28 @@ public class Usuario implements Serializable {
         this.fechaIngreso = fechaIngreso;
     }
 
-    public String getEstado() {
-        return estado;
+    public boolean getEnabled() {
+        return enabled;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getContrasenha() {
-        return contrasenha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContrasenha(String contrasenha) {
-        this.contrasenha = contrasenha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<RegistrarVenta> getRegistrarVentaList() {

@@ -33,12 +33,12 @@ import javax.validation.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "usuario")
-public class Usuario implements Serializable {
+public class Usuario implements Serializable{
 
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
     private Integer id;
     
@@ -79,8 +79,8 @@ public class Usuario implements Serializable {
     private String username;
     
     @NotEmpty(message = "no puede estar vacio")
-    @Column(name = "contrasenha", length = 60)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = "contrasenha")
+    @JsonProperty(access = JsonProperty.Access.AUTO)
     private String password;
     
     @JsonIgnoreProperties({"idUsuario","hibernateLazyInitializer","handler"})
@@ -110,7 +110,8 @@ public class Usuario implements Serializable {
     public void prePersist(){
         this.fechaIngreso = new Date();
     }*/
-
+    
+    
     public Integer getId() {
         return id;
     }
@@ -244,8 +245,7 @@ public class Usuario implements Serializable {
     }
 
     public void setContratoVentaList(List<ContratoVenta> contratoVentaList) {
-        this.contratoVentaList = contratoVentaList;
+		this.contratoVentaList = contratoVentaList;
     }
-
    
 }

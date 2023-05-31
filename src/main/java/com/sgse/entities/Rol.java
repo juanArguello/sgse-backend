@@ -55,7 +55,8 @@ public class Rol implements Serializable {
         @JoinColumn(name = "id_rol", referencedColumnName = "id")}, 
             inverseJoinColumns = {
         @JoinColumn(name = "id_permisos", referencedColumnName = "id")})
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    //@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
     private List<Permisos> permisosList;
     
     

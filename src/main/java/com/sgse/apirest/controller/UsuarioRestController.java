@@ -4,32 +4,35 @@
  */
 package com.sgse.apirest.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.sgse.entities.Usuario;
-import com.sgse.mail.Contrasenha;
-import com.sgse.resources.NombreServidor;
-import com.sgse.service.MailService;
-import com.sgse.service.UsuarioService;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import javax.validation.Valid;
-import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sgse.entities.Usuario;
+import com.sgse.resources.NombreServidor;
+import com.sgse.resources.Paginacion;
+import com.sgse.service.UsuarioService;
 
 /**
  *
@@ -45,8 +48,9 @@ public class UsuarioRestController {
     @Autowired
     private UsuarioService usuarioService;
     
-    @Autowired
-    private MailService mailService;
+	/*
+	 * @Autowired private MailService mailService;
+	 */
     
   
     //@Secured("ROLE_ADMINISTRADOR")
@@ -64,10 +68,10 @@ public class UsuarioRestController {
         
         usuario.setFechaIngreso(new Date());
         usuario.setEnabled(true);
-        Contrasenha contrasenha = new Contrasenha(); 
+        //Contrasenha contrasenha = new Contrasenha(); 
         String contrasenhaPlana = usuario.getPassword(); // Se obtiene la contraseña plana del usuario
         // Setear la contraseña cifrandolo con algoritmo bCryt
-        usuario.setPassword(contrasenha.cifrarContrasenha(contrasenhaPlana));
+        usuario.setPassword(new BCryptPasswordEncoder().encode(contrasenhaPlana));
         
         try {
             usuarioService.create(usuario); // crea el usuario
@@ -78,11 +82,13 @@ public class UsuarioRestController {
         }
         
         // enviar el email con el nombreUsuario y contraseña
-        String texto = "<p>Bienvenido " + usuario.getNombre() + " " + usuario.getApellido() + "</p>"
-            + "<p>al staff  de la empresa Futuro." + "</p>"+
-            "<p>El nombre de su Usuario es: " + usuario.getUsername() + "</p>"+
-            "<p>La contraseña es: " + contrasenhaPlana + "</p>";
-        mailService.enviarEmail(usuario.getEmail(), "Registro de Usuario exitoso!", texto);
+		/*
+		 * String texto = "<p>Bienvenido " + usuario.getNombre() + " " +
+		 * usuario.getApellido() + "</p>" + "<p>al staff  de la empresa Futuro." +
+		 * "</p>"+ "<p>El nombre de su Usuario es: " + usuario.getUsername() + "</p>"+
+		 * "<p>La contraseña es: " + contrasenhaPlana + "</p>";
+		 */
+        //mailService.enviarEmail(usuario.getEmail(), "Registro de Usuario exitoso!", texto);
         
         map.put("mensaje", "El usuario "+usuario.getUsername()+" ha sido creado con éxito");
         return new ResponseEntity<>(map,HttpStatus.CREATED);
@@ -114,7 +120,13 @@ public class UsuarioRestController {
         return new ResponseEntity<>(usuario,HttpStatus.OK);
     }
     
+    @GetMapping(path="/usuarios/page/{page}",produces = "application/json")
+    public Paginacion<Usuario> getUsuariosPaginado(@PathVariable("page") Integer page){
+    	int tamanhoPagina = 8;
+		return usuarioService.getUsuariosPaginado(page,tamanhoPagina);
+	}
     
+     
     @GetMapping(path = "/usuarios/username={nombreUsuario}",produces = "application/json")
     public ResponseEntity<?> getUsuarioByUsername(@PathVariable("nombreUsuario") String nombreUsuario) {
         Usuario usuario = null;

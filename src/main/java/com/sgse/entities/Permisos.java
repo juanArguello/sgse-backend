@@ -35,13 +35,13 @@ public class Permisos implements Serializable{
     private static final long serialVersionUID = 1L;
   
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
-    private Integer id;
+    private Integer id; 
     
     @NotEmpty(message = "no puede estar vacio")
-    @Size(min = 4, max = 12, message = "el tamaño tiene que estar entre 4 y 12")
-    @Column(name = "nombre",unique = true)
+    @Size(min = 4, max = 30, message = "el tamaño tiene que estar entre 4 y 30")
+    @Column(name = "nombre", unique = true)
     private String nombre;
     
     @NotEmpty(message = "no puede estar vacio")

@@ -3,8 +3,9 @@
  */
 package com.sgse.service;
 
-import com.sgse.entities.Reporte;
 import java.util.List;
+
+import com.sgse.entities.Reporte;
 
 /**
  *

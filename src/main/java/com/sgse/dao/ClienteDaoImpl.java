@@ -4,16 +4,16 @@
 
 package com.sgse.dao;
 
-import com.sgse.entities.Cliente;
-import com.sgse.resources.Paginacion;
-
 import java.util.List;
-
-import javax.persistence.TypedQuery;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sgse.entities.Cliente;
+import com.sgse.resources.Paginacion;
+
+import jakarta.persistence.TypedQuery;
 
 /**
  *
@@ -30,7 +30,7 @@ public class ClienteDaoImpl implements ClienteDao{
     @Override
     public void create(Cliente cliente) {
         sessionFactory.getCurrentSession()
-            .save(cliente);
+            .persist(cliente);
     }
 
     @Override
@@ -54,7 +54,8 @@ public class ClienteDaoImpl implements ClienteDao{
 		} else {
 			ultimoNumeroPagina = (int) (totalRegistros / tamanhoPagina) + 1;
 		}
-		TypedQuery<Cliente> query = sessionFactory.getCurrentSession().createQuery("from Cliente c order by c.id asc",
+		TypedQuery<Cliente> query = sessionFactory.getCurrentSession()
+				.createQuery("from Cliente c order by c.id asc",
 				Cliente.class);
 
 		query.setFirstResult((numeroPagina - 1) * tamanhoPagina);
@@ -70,19 +71,20 @@ public class ClienteDaoImpl implements ClienteDao{
 
     @Override
     public void update(Cliente cliente) {
-        sessionFactory.getCurrentSession().update(cliente);
+        sessionFactory.getCurrentSession().merge(cliente);
     }
 
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()
-            .delete(sessionFactory.getCurrentSession().get(Cliente.class, id));
+        	.remove(sessionFactory.getCurrentSession().get(Cliente.class, id));
     }
 
     @Override
     public int cantidadClientes() {
-        return ((Number) sessionFactory.getCurrentSession().createQuery("SELECT COUNT(*) FROM Cliente")
-                .uniqueResult()).intValue();
+        return sessionFactory.getCurrentSession()
+        		.createQuery("select count(*) from Cliente c",Long.class)
+        		.getSingleResult().intValue();
     }
     
 }

@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -34,6 +32,8 @@ import com.sgse.resources.NombreServidor;
 import com.sgse.resources.Paginacion;
 import com.sgse.service.UsuarioService;
 
+import jakarta.validation.Valid;
+
 /**
  *
  * @author Juan Carlos Argüello Ortiz
@@ -44,7 +44,7 @@ import com.sgse.service.UsuarioService;
 @CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
 @RequestMapping(value = "/api")
 public class UsuarioRestController {
-    
+     
     @Autowired
     private UsuarioService usuarioService;
     

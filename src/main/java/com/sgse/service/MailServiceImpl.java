@@ -3,19 +3,18 @@
  */
 package com.sgse.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+//import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 
 /**
  *
@@ -71,37 +70,24 @@ public class MailServiceImpl implements MailService {
         }
     }
 
-    @Override
-    public void enviarEmailAdjunto(String destinatario, String asunto, String cuerpoMensaje,
-        CommonsMultipartFile[] archivoAdjunto) {
-        inicializar();
-        texto = cuerpoMensaje;
-        try {
-            MimeMessage message = javaMailSenderImpl.createMimeMessage();
-            // use la bandera true para indicar que necesita un mensaje de varias partes
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(CORREO_FUTURO);
-            helper.setTo(destinatario);
-            helper.setSubject(asunto);
-            texto += "<hr><p><strong>Futuro Avda. San Martin N° 615 esq. Sucre</strong></p>";
-            texto += "<img src='cid:Futuro' height='100' width='120' />";
-            // usa true para indicar el texto incluye como HTML
-            helper.setText(texto, true);
-            ClassPathResource classPathResource = new ClassPathResource("/images/logo.jpg");
-            helper.addInline("Futuro", classPathResource);
-            // adjuntamos el archivo 
-            List<CommonsMultipartFile> archivos = new ArrayList<>();
-            archivos.addAll(Arrays.asList(archivoAdjunto));
-            if(!archivos.isEmpty()){
-                for (CommonsMultipartFile archivo : archivos) {
-                    helper.addAttachment(archivo.getOriginalFilename(), archivo);
-                }
-            }
-            javaMailSenderImpl.send(message); 
-        } catch (MessagingException e) {
-            log.error("\n\tNo se pudo enviar el correo");
-        }
-       
-        
-    }
+	/*
+	 * @Override public void enviarEmailAdjunto(String destinatario, String asunto,
+	 * String cuerpoMensaje, CommonsMultipartFile[] archivoAdjunto) { inicializar();
+	 * texto = cuerpoMensaje; try { MimeMessage message =
+	 * javaMailSenderImpl.createMimeMessage(); // use la bandera true para indicar
+	 * que necesita un mensaje de varias partes MimeMessageHelper helper = new
+	 * MimeMessageHelper(message, true); helper.setFrom(CORREO_FUTURO);
+	 * helper.setTo(destinatario); helper.setSubject(asunto); texto +=
+	 * "<hr><p><strong>Futuro Avda. San Martin N° 615 esq. Sucre</strong></p>";
+	 * texto += "<img src='cid:Futuro' height='100' width='120' />"; // usa true
+	 * para indicar el texto incluye como HTML helper.setText(texto, true);
+	 * ClassPathResource classPathResource = new
+	 * ClassPathResource("/images/logo.jpg"); helper.addInline("Futuro",
+	 * classPathResource); // adjuntamos el archivo List<CommonsMultipartFile>
+	 * archivos = new ArrayList<>(); archivos.addAll(Arrays.asList(archivoAdjunto));
+	 * if(!archivos.isEmpty()){ for (CommonsMultipartFile archivo : archivos) {
+	 * helper.addAttachment(archivo.getOriginalFilename(), archivo); } }
+	 * javaMailSenderImpl.send(message); } catch (MessagingException e) {
+	 * log.error("\n\tNo se pudo enviar el correo"); } }
+	 */
 }

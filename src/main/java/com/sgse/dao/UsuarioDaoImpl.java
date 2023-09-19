@@ -3,16 +3,16 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.Usuario;
-import com.sgse.resources.Paginacion;
-
 import java.util.List;
-
-import javax.persistence.TypedQuery;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sgse.entities.Usuario;
+import com.sgse.resources.Paginacion;
+
+import jakarta.persistence.TypedQuery;
 
 
 /**
@@ -31,7 +31,8 @@ public class UsuarioDaoImpl implements UsuarioDao{
     @Override
     public void create(Usuario usuario) {
         //hibernateTemplate.save(usuario);
-        sessionFactory.getCurrentSession().save(usuario);
+        sessionFactory.getCurrentSession()
+        	.persist(usuario);
     }
 
     @Override
@@ -89,7 +90,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
     @Override
     public void update(Usuario usuario) {
         //hibernateTemplate.update(usuario);
-    	this.sessionFactory.getCurrentSession().update(usuario);
+    	this.sessionFactory.getCurrentSession().merge(usuario);
     }
 
     @Override
@@ -97,7 +98,8 @@ public class UsuarioDaoImpl implements UsuarioDao{
 //        Query query = getSession().createQuery("delete from Usuario u where u.id=:pId");
 //        query.setParameter("pId", id);
 //        query.executeUpdate();
-    	this.sessionFactory.getCurrentSession().delete(this.sessionFactory.getCurrentSession().get(Usuario.class, id));
+    	this.sessionFactory.getCurrentSession()
+    		.remove(this.sessionFactory.getCurrentSession().get(Usuario.class, id));
     }
 
     @Override

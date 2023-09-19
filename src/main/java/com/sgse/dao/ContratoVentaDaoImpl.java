@@ -3,11 +3,13 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.ContratoVenta;
 import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sgse.entities.ContratoVenta;
 
 /**
  *
@@ -24,7 +26,7 @@ public class ContratoVentaDaoImpl implements ContratoVentaDao{
     @Override
     public void create(ContratoVenta contratoVenta) {
         sessionFactory.getCurrentSession()
-            .save(contratoVenta);
+            .persist(contratoVenta);
     }
 
     @Override
@@ -39,13 +41,13 @@ public class ContratoVentaDaoImpl implements ContratoVentaDao{
 
     @Override
     public void update(ContratoVenta contratoVenta) {
-        sessionFactory.getCurrentSession().update(contratoVenta);
+        sessionFactory.getCurrentSession().merge(contratoVenta);
     }
 
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()
-            .delete(sessionFactory.getCurrentSession().get(ContratoVenta.class, id));
+            .remove(sessionFactory.getCurrentSession().get(ContratoVenta.class, id));
     }
     
 }

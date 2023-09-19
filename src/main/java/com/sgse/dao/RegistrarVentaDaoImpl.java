@@ -3,11 +3,13 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.RegistrarVenta;
 import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sgse.entities.RegistrarVenta;
 
 /**
  *
@@ -24,7 +26,7 @@ public class RegistrarVentaDaoImpl implements RegistrarVentaDao{
     @Override
     public void create(RegistrarVenta registrarVenta) {
         sessionFactory.getCurrentSession()
-            .save(registrarVenta);
+            .persist(registrarVenta);
     }
 
     @Override
@@ -40,13 +42,13 @@ public class RegistrarVentaDaoImpl implements RegistrarVentaDao{
 
     @Override
     public void update(RegistrarVenta registrarVenta) {
-        sessionFactory.getCurrentSession().update(registrarVenta);
+        sessionFactory.getCurrentSession().merge(registrarVenta);
     }
 
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()
-            .delete(sessionFactory.getCurrentSession().get(RegistrarVenta.class, id));
+            .remove(sessionFactory.getCurrentSession().get(RegistrarVenta.class, id));
     }
     
 }

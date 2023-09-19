@@ -3,10 +3,10 @@
  */
 package com.sgse.service;
 
+import java.util.List;
+
 import com.sgse.entities.Usuario;
 import com.sgse.resources.Paginacion;
-
-import java.util.List;
 
 /**
  *

@@ -3,11 +3,13 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.Seguro;
 import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sgse.entities.Seguro;
 
 /**
  *
@@ -24,7 +26,7 @@ public class SeguroDaoImpl implements SeguroDao{
     @Override
     public void create(Seguro seguro) {
         sessionFactory.getCurrentSession()
-            .save(seguro);
+            .persist(seguro);
     }
 
     @Override
@@ -39,13 +41,13 @@ public class SeguroDaoImpl implements SeguroDao{
 
     @Override
     public void update(Seguro seguro) {
-        sessionFactory.getCurrentSession().update(seguro);
+        sessionFactory.getCurrentSession().merge(seguro);
     }
 
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()
-            .delete(sessionFactory.getCurrentSession().get(Seguro.class, id));
+            .remove(sessionFactory.getCurrentSession().get(Seguro.class, id));
     }
     
 }

@@ -2,8 +2,12 @@ package com.sgse.configuration;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
+/**
+ * @author Juan Carlos Arguello Ortiz
+ * @version 1.0
+ */
 public class AuthCredentials implements Serializable{
 
 	private static final long serialVersionUID = 1L;

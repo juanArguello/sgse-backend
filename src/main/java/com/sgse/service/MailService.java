@@ -3,7 +3,7 @@
  */
 package com.sgse.service;
 
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+//import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
  *
@@ -13,6 +13,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 public interface MailService {
     
     public void enviarEmail(String destinatario, String asunto, String cuerpoMensaje);
-    public void enviarEmailAdjunto(String destinatario, String asunto, String cuerpoMensaje,
-        CommonsMultipartFile[] archivoAdjunto );
+    /*public void enviarEmailAdjunto(String destinatario, String asunto, String cuerpoMensaje,
+        CommonsMultipartFile[] archivoAdjunto );*/
 }

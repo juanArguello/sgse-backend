@@ -3,11 +3,13 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.Rol;
 import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sgse.entities.Rol;
 
 /**
  *
@@ -24,7 +26,7 @@ public class RolDaoImpl implements RolDao{
     @Override
     public void create(Rol rol) {
         sessionFactory.getCurrentSession()
-            .save(rol);
+            .persist(rol);
     }
 
     @Override
@@ -48,13 +50,13 @@ public class RolDaoImpl implements RolDao{
     @Override
     public void update(Rol rol) {
         sessionFactory.getCurrentSession()
-            .update(rol);
+            .merge(rol);
     }
 
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()
-            .delete(sessionFactory.getCurrentSession().get(Rol.class, id));
+            .remove(sessionFactory.getCurrentSession().get(Rol.class, id));
     }
     
     @Override

@@ -3,8 +3,9 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.Inventario;
 import java.util.List;
+
+import com.sgse.entities.Inventario;
 
 /**
  *

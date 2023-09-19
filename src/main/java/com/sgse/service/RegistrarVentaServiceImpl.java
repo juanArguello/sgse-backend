@@ -3,12 +3,14 @@
  */
 package com.sgse.service;
 
-import com.sgse.dao.RegistrarVentaDao;
-import com.sgse.entities.RegistrarVenta;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.sgse.dao.RegistrarVentaDao;
+import com.sgse.entities.RegistrarVenta;
 
 /**
  *

@@ -3,11 +3,13 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.Sucursal;
 import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sgse.entities.Sucursal;
 
 /**
  *
@@ -24,7 +26,7 @@ public class SucursalDaoImpl implements SucursalDao{
     @Override
     public void create(Sucursal sucursal) {
         sessionFactory.getCurrentSession()
-            .save(sucursal);
+            .persist(sucursal);
     }
 
     @Override
@@ -39,13 +41,13 @@ public class SucursalDaoImpl implements SucursalDao{
 
     @Override
     public void update(Sucursal sucursal) {
-        sessionFactory.getCurrentSession().update(sucursal);
+        sessionFactory.getCurrentSession().merge(sucursal);
     }
 
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()
-            .delete(sessionFactory.getCurrentSession().get(Sucursal.class, id));
+            .remove(sessionFactory.getCurrentSession().get(Sucursal.class, id));
     }
    
 }

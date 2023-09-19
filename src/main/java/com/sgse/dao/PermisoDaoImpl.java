@@ -5,14 +5,14 @@ package com.sgse.dao;
 
 import java.util.List;
 
-import javax.persistence.TypedQuery;
-
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sgse.entities.Permisos;
 import com.sgse.resources.Paginacion;
+
+import jakarta.persistence.TypedQuery;
 
 /**
  *
@@ -28,7 +28,8 @@ public class PermisoDaoImpl implements PermisoDao {
 	// Implementacion de los metodos CRUD
 	@Override
 	public void create(Permisos permisos) {
-		sessionFactory.getCurrentSession().save(permisos);
+		sessionFactory.getCurrentSession()
+			.persist(permisos);
 	}
 
 	@Override
@@ -70,12 +71,13 @@ public class PermisoDaoImpl implements PermisoDao {
 
 	@Override
 	public void update(Permisos permisos) {
-		sessionFactory.getCurrentSession().update(permisos);
+		sessionFactory.getCurrentSession().merge(permisos);
 	}
 
 	@Override
 	public void delete(int id) {
-		sessionFactory.getCurrentSession().delete(sessionFactory.getCurrentSession().get(Permisos.class, id));
+		sessionFactory.getCurrentSession()
+			.remove(sessionFactory.getCurrentSession().get(Permisos.class, id));
 	}
 
 	@Override

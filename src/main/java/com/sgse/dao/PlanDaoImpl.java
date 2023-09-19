@@ -5,11 +5,13 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.Plan;
 import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sgse.entities.Plan;
 
 /**
  *
@@ -26,7 +28,7 @@ public class PlanDaoImpl implements PlanDao{
     @Override
     public void create(Plan plan) {
        sessionFactory.getCurrentSession()
-            .save(plan);
+            .persist(plan);
     }
 
     @Override
@@ -41,13 +43,13 @@ public class PlanDaoImpl implements PlanDao{
         
     @Override
     public void update(Plan plan) {
-        sessionFactory.getCurrentSession().update(plan);
+        sessionFactory.getCurrentSession().merge(plan);
     }
 
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()
-            .delete(sessionFactory.getCurrentSession().get(Plan.class, id));
+            .remove(sessionFactory.getCurrentSession().get(Plan.class, id));
     }
     
 }

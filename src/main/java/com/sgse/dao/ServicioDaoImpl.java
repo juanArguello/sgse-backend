@@ -3,16 +3,16 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.Servicios;
-import com.sgse.resources.Paginacion;
-
 import java.util.List;
-
-import javax.persistence.TypedQuery;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sgse.entities.Servicios;
+import com.sgse.resources.Paginacion;
+
+import jakarta.persistence.TypedQuery;
 
 /**
  *
@@ -28,7 +28,8 @@ public class ServicioDaoImpl implements ServicioDao{
     //Implementacion de los metodos CRUD
     @Override
     public void create(Servicios servicios) {
-        sessionFactory.getCurrentSession().save(servicios);
+        sessionFactory.getCurrentSession()
+        	.persist(servicios);
     }
 
     @Override
@@ -69,13 +70,13 @@ public class ServicioDaoImpl implements ServicioDao{
 
     @Override
     public void update(Servicios servicios) {
-        sessionFactory.getCurrentSession().update(servicios);
+        sessionFactory.getCurrentSession().merge(servicios);
     }
 
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()
-            .delete(sessionFactory.getCurrentSession().get(Servicios.class, id));
+            .remove(sessionFactory.getCurrentSession().get(Servicios.class, id));
     }
     
 }

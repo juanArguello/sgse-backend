@@ -3,8 +3,9 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.RegistrarVenta;
 import java.util.List;
+
+import com.sgse.entities.RegistrarVenta;
 
 /**
  *

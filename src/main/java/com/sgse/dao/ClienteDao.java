@@ -3,10 +3,10 @@
  */
 package com.sgse.dao;
 
+import java.util.List;
+
 import com.sgse.entities.Cliente;
 import com.sgse.resources.Paginacion;
-
-import java.util.List;
 
 /**
  *

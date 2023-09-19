@@ -3,11 +3,13 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.Reporte;
 import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sgse.entities.Reporte;
 
 /**
  *
@@ -24,7 +26,7 @@ public class ReporteDaoImpl implements ReporteDao{
     @Override
     public void create(Reporte reporte) {
         sessionFactory.getCurrentSession()
-            .save(reporte);
+            .persist(reporte);
     }
 
     @Override
@@ -39,13 +41,13 @@ public class ReporteDaoImpl implements ReporteDao{
 
     @Override
     public void update(Reporte reporte) {
-        sessionFactory.getCurrentSession().update(reporte);
+        sessionFactory.getCurrentSession().merge(reporte);
     }
 
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()
-            .delete(sessionFactory.getCurrentSession().get(Reporte.class, id));
+            .remove(sessionFactory.getCurrentSession().get(Reporte.class, id));
     }
     
 }

@@ -5,8 +5,9 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.Plan;
 import java.util.List;
+
+import com.sgse.entities.Plan;
 
 /**
  *

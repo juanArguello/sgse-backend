@@ -3,11 +3,13 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.Compra;
 import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sgse.entities.Compra;
 
 /**
  *
@@ -24,7 +26,8 @@ public class CompraDaoImpl implements CompraDao{
     @Override
     public void create(Compra compra) {
         sessionFactory.getCurrentSession()
-            .save(compra);}
+            .persist(compra);
+    }
 
     @Override
     public Compra findById(int id) {
@@ -33,18 +36,19 @@ public class CompraDaoImpl implements CompraDao{
 
     @Override
     public List<Compra> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Compra c order by c.id asc", Compra.class).getResultList();
+        return sessionFactory.getCurrentSession()
+        		.createQuery("from Compra c order by c.id asc", Compra.class).getResultList();
     }
 
     @Override
     public void update(Compra compra) {
-        sessionFactory.getCurrentSession().update(compra);
+        sessionFactory.getCurrentSession().merge(compra);
     }
 
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()
-            .delete(sessionFactory.getCurrentSession().get(Compra.class, id));
+            .remove(sessionFactory.getCurrentSession().get(Compra.class, id));
     }
     
 }

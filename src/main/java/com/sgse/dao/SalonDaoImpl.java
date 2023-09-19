@@ -3,11 +3,13 @@
  */
 package com.sgse.dao;
 
-import com.sgse.entities.Salon;
 import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.sgse.entities.Salon;
 
 /**
  *
@@ -24,7 +26,7 @@ public class SalonDaoImpl implements SalonDao{
     @Override
     public void create(Salon salon) {
         sessionFactory.getCurrentSession()
-            .save(salon);
+            .persist(salon);
     }
 
     @Override
@@ -39,13 +41,13 @@ public class SalonDaoImpl implements SalonDao{
 
     @Override
     public void update(Salon salon) {
-        sessionFactory.getCurrentSession().update(salon);
+        sessionFactory.getCurrentSession().merge(salon);
     }
 
     @Override
     public void delete(int id) {
         sessionFactory.getCurrentSession()
-            .delete(sessionFactory.getCurrentSession().get(Salon.class, id));
+            .remove(sessionFactory.getCurrentSession().get(Salon.class, id));
     }
     
 }

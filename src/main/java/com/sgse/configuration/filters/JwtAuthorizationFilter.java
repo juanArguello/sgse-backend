@@ -29,13 +29,13 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter{
 		String bearerToken = request.getHeader("Authorization");
 		if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
 			String token = bearerToken.replace("Bearer ", "");
-			UsernamePasswordAuthenticationToken authenticationToken = JwtUtils
-					.getAuthentication(token);
-			authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-			SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+			UsernamePasswordAuthenticationToken authenticationToken = JwtUtils.getAuthentication(token);
+			if(authenticationToken != null) {
+				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+			}
 		}
 		filterChain.doFilter(request, response);
-		
 	}
 
 }

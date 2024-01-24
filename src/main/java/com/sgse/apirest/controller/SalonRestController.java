@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Salon;
-import com.sgse.resources.NombreServidor;
+import com.sgse.resources.HostPermitido;
 import com.sgse.service.SalonService;
 
 import jakarta.validation.Valid;
@@ -37,14 +37,14 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
+@CrossOrigin(origins = {HostPermitido.HOST_DEV})
+@RequestMapping(path = "/api/salones")
 public class SalonRestController {
     
     @Autowired
     private SalonService salonService;
     
-    @PostMapping(path = "/salones",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearSalon(@Valid @RequestBody Salon salon, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -68,13 +68,13 @@ public class SalonRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/salones",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Salon> getSalones() {
         return salonService.findAll();
     }
     
-    @GetMapping(path = "/salones/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getSalonById(@PathVariable("id") String id) {
         Salon salon = null;
         Map<String,Object> map = new HashMap<>();
@@ -93,7 +93,7 @@ public class SalonRestController {
         return new ResponseEntity<>(salon,HttpStatus.OK);
     }
     
-    @PutMapping(path = "/salones/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateSalon(@Valid @RequestBody Salon salon, BindingResult result,
         @PathVariable("id") String id ) {
         Salon salonNuevo = salonService.findById(Integer.valueOf(id));
@@ -130,7 +130,7 @@ public class SalonRestController {
     }
    
     
-    @DeleteMapping(path = "/salones/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSalon(@PathVariable("id") String id) {
         salonService.delete(Integer.valueOf(id)); // Elimina el salon de acuerdo al ID

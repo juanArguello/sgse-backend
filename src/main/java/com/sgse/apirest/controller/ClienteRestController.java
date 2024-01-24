@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Cliente;
-import com.sgse.resources.NombreServidor;
 import com.sgse.resources.Paginacion;
 import com.sgse.service.ClienteService;
 
@@ -38,15 +37,15 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
+@CrossOrigin
+@RequestMapping(path = "/api/clientes")
 public class ClienteRestController {
     
     @Autowired
     private ClienteService clienteService;
     
     //@Secured("ROLE_VEND")
-    @PostMapping(path = "/clientes",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearCliente(@Valid @RequestBody Cliente cliente, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -70,19 +69,19 @@ public class ClienteRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/clientes",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Cliente> getClientes() {
         return clienteService.findAll();
     }
     
-    @GetMapping(path="/clientes/page/{page}",produces = "application/json")
+    @GetMapping(path="/page/{page}",produces = "application/json")
     public Paginacion<Cliente> getClientesPaginado(@PathVariable("page") Integer page){
     	int tamanhoPagina = 8;
 		return clienteService.getClientesPaginado(page,tamanhoPagina);
 	}
     
-    @GetMapping(path = "/clientes/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getClienteById(@PathVariable("id") String id) {
         Cliente cliente = null;
         Map<String,Object> map = new HashMap<>();
@@ -102,7 +101,7 @@ public class ClienteRestController {
     }
     
     //@Secured("ROLE_VEND")
-    @PutMapping(path = "/clientes/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateCliente(@Valid @RequestBody Cliente cliente,BindingResult result,
         @PathVariable("id") String id ) {
         Cliente clienteNuevo = clienteService.findById(Integer.valueOf(id));
@@ -142,13 +141,13 @@ public class ClienteRestController {
         return new ResponseEntity<>(map,HttpStatus.NO_CONTENT);
     }
     
-    @DeleteMapping(path = "/clientes/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCliente(@PathVariable("id") String id) {
         clienteService.delete(Integer.valueOf(id)); // Elimina el cliente de acuerdo al ID
     }
     
-    @GetMapping(path = "/clientes/cantidad",produces = "text/plain")
+    @GetMapping(path = "/cantidad",produces = "text/plain")
     @ResponseStatus(HttpStatus.OK)
     public int cantidadClientes() {
         return clienteService.cantidadClientes();

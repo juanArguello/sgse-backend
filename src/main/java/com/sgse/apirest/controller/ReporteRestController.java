@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Reporte;
-import com.sgse.resources.NombreServidor;
+import com.sgse.resources.HostPermitido;
 import com.sgse.service.ReporteService;
 
 import jakarta.validation.Valid;
@@ -37,14 +37,14 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
+@CrossOrigin(origins = {HostPermitido.HOST_DEV})
+@RequestMapping(path = "/api/reportes")
 public class ReporteRestController {
     
     @Autowired
     private ReporteService reporteService;
     
-    @PostMapping(path = "/reportes",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearReporte(@Valid @RequestBody Reporte reporte, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -68,13 +68,13 @@ public class ReporteRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/reportes",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Reporte> getReportes() {
         return reporteService.findAll();
     }
     
-    @GetMapping(path = "/reportes/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getReporteById(@PathVariable("id") String id) {
         Reporte reporte = null;
         Map<String,Object> map = new HashMap<>();
@@ -93,7 +93,7 @@ public class ReporteRestController {
         return new ResponseEntity<>(reporte,HttpStatus.OK);
     }
     
-    @PutMapping(path = "/reportes/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateReporte(@Valid @RequestBody Reporte reporte, BindingResult result,
         @PathVariable("id") String id ) {
         Reporte reporteNuevo = reporteService.findById(Integer.valueOf(id));
@@ -130,7 +130,7 @@ public class ReporteRestController {
     }
    
     
-    @DeleteMapping(path = "/reportes/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReporte(@PathVariable("id") String id) {
         reporteService.delete(Integer.valueOf(id)); // Elimina el reporte de acuerdo al ID

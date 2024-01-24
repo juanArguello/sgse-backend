@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.SecretKey;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,8 +25,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 
@@ -37,7 +39,7 @@ public class JwtUtils {
 
 	private static Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 	
-	private final static String ACCESS_TOKEN_SECRET = "ghp_TXQnTFjFLc7E6PcxnGdWnKr4oMAdQG3SiQP9CxnKypJf4q3w0m";
+	private final static String ACCESS_TOKEN_SECRET = "ghpTXQnTFjFLc7E6PcxnGdWnKr4oMAdQG3SiQP9CxnKypJf4q3w0m";
 	private final static Long ACCESS_TOKEN_VALIDITY_SECONDS = 2_592_000L; // 30 dias de duracion del token
 	
 	/**
@@ -52,12 +54,14 @@ public class JwtUtils {
 		Map<String, Object> permisosMap = new HashMap<>();
 		permisosMap.put("permisos", userDetails.getAuthorities());
 		return Jwts.builder()
-				.setExpiration(expirationDate)
-				.setSubject(userDetails.getUsername())
+				.subject(userDetails.getUsername())
+				.issuedAt(new Date(System.currentTimeMillis()))
+				.expiration(expirationDate)
 				.claim("rol", userDetails.getRol())
-				.addClaims(permisosMap)
-				.signWith(Keys.hmacShaKeyFor(ACCESS_TOKEN_SECRET.getBytes()),SignatureAlgorithm.HS256)
+				.claims(permisosMap)
+				.signWith(getKey())
 				.compact();
+		
 	}
 	
 	/**
@@ -69,8 +73,14 @@ public class JwtUtils {
 	public static UsernamePasswordAuthenticationToken getAuthentication(String token){
 		ObjectMapper mapper = new ObjectMapper();
 		List<SimpleGrantedAuthority> authorities = null;
+		String username = "";
 		Claims claims = parseClaims(token);
-		String username = claims.getSubject();
+		
+		if(claims != null) {
+			username = claims.getSubject();
+		}else {
+			return null;
+		}
 		
 		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES,true);
 		mapper.registerModule(new SimpleModule().addDeserializer(SimpleGrantedAuthority.class,
@@ -94,8 +104,14 @@ public class JwtUtils {
 	public static UserDetails getUserDetailsFromToken(String token) {
 		ObjectMapper mapper = new ObjectMapper();
 		List<GrantedAuthority> authorities = null;
+		String username = "";
 		Claims claims = parseClaims(token);
-		String username = claims.getSubject();
+		
+		if(claims != null) {
+			username = claims.getSubject();
+		}else {
+			return null;
+		}
 		
 		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES,true);
 		mapper.registerModule(new SimpleModule()
@@ -120,13 +136,18 @@ public class JwtUtils {
 	public static List<SimpleGrantedAuthority> getPermisosFromToken(String token) {
 		ObjectMapper mapper = new ObjectMapper();
 		List<SimpleGrantedAuthority> authorities = null;
+		Claims claims = parseClaims(token);
+		
+		if(claims == null) {
+			return null;
+		}
 		
 		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES,true);
 		mapper.registerModule(new SimpleModule()
 					.addDeserializer(SimpleGrantedAuthority.class, new SimpleGrantedAuthorityDeserializer()));
 		try {
 			authorities = mapper.readValue(new ObjectMapper()
-					.writeValueAsString(parseClaims(token).get("permisos",List.class)),
+					.writeValueAsString(claims.get("permisos",List.class)),
 					new TypeReference<List<SimpleGrantedAuthority>>(){});
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
@@ -138,34 +159,41 @@ public class JwtUtils {
 	
 	// Obtiene el username a traves del token
 	public static String getUsernameFromToken(String token) {
-		return parseClaims(token).getSubject();
+		Claims claims = parseClaims(token);
+		return claims != null ? claims.getSubject() : "" ;
 	}
 	
 	// Obtiene el rol a traves del token
 	public static String getRolFromToken(String token) {
-		return parseClaims(token).get("rol", String.class);
+		Claims claims = parseClaims(token);
+		return claims != null ? claims.get("rol", String.class) : "" ;
 	}
 	
 	// Parsea el playload del token
 	private static Claims parseClaims(String token) {
 		try {
-			return Jwts.parserBuilder()
-					.setSigningKey(ACCESS_TOKEN_SECRET.getBytes())
+			return Jwts.parser()
+					.verifyWith(getKey())
 					.build()
-					.parseClaimsJws(token)
-					.getBody();
+					.parseSignedClaims(token)
+					.getPayload();
 		} catch (SignatureException e) {
-			logger.error("Invalid JWT signature: ", e.getMessage());
+			logger.error("Invalid JWT signature ");
 		} catch (MalformedJwtException e) {
-			logger.error("Invalid JWT token: ", e.getMessage());
+			logger.error("Invalid JWT token ");
 		} catch (ExpiredJwtException e) {
-			logger.error("JWT token is expired: ", e.getMessage());
+			logger.error("JWT token is expired ");
 		} catch (UnsupportedJwtException e) {
-			logger.error("JWT token is unsupported: ", e.getMessage());
+			logger.error("JWT token is unsupported ");
 		} catch (IllegalArgumentException e) {
-			logger.error("JWT claims string is empty: ", e.getMessage());
+			logger.error("JWT claims string is empty ");
 		} 
 		return null;
-	}	
+	}
+	
+	private static SecretKey getKey() {
+		byte [] keyBytes = Decoders.BASE64.decode(ACCESS_TOKEN_SECRET);
+		return Keys.hmacShaKeyFor(keyBytes);
+	}
 	
 }

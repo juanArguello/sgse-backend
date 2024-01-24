@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.RegistrarVenta;
-import com.sgse.resources.NombreServidor;
+import com.sgse.resources.HostPermitido;
 import com.sgse.service.RegistrarVentaService;
 
 import jakarta.validation.Valid;
@@ -37,14 +37,14 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
+@CrossOrigin(origins = {HostPermitido.HOST_DEV})
+@RequestMapping(path = "/api/registrarventas")
 public class RegistrarVentaRestController {
     
     @Autowired
     private RegistrarVentaService registrarVentaService;
     
-    @PostMapping(path = "/registrarventas",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearRegistroVenta(@Valid @RequestBody RegistrarVenta registrarVenta, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -68,13 +68,13 @@ public class RegistrarVentaRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/registrarventas",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<RegistrarVenta> getRegistrarVentas() {
         return registrarVentaService.findAll();
     }
     
-    @GetMapping(path = "/registrarventas/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getRegistrarVentaById(@PathVariable("id") String id) {
         RegistrarVenta registrarVenta = null;
         Map<String,Object> map = new HashMap<>();
@@ -93,7 +93,7 @@ public class RegistrarVentaRestController {
         return new ResponseEntity<>(registrarVenta,HttpStatus.OK);
     }
     
-    @PutMapping(path = "/registrarVentas/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateRegistrarVenta(@Valid @RequestBody RegistrarVenta registrarVenta, 
         BindingResult result, @PathVariable("id") String id ) {
         RegistrarVenta registrarVentaNuevo = registrarVentaService.findById(Integer.valueOf(id));
@@ -129,7 +129,7 @@ public class RegistrarVentaRestController {
     }
    
     
-    @DeleteMapping(path = "/registrarVentas/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteRegistrarVenta(@PathVariable("id") String id) {
         registrarVentaService.delete(Integer.valueOf(id)); // Elimina el registrarVenta de acuerdo al ID

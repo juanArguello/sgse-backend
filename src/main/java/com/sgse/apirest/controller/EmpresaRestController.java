@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Empresa;
-import com.sgse.resources.NombreServidor;
+import com.sgse.resources.HostPermitido;
 import com.sgse.service.EmpresaService;
 
 import jakarta.validation.Valid;
@@ -37,14 +37,14 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
+@CrossOrigin(origins = {HostPermitido.HOST_DEV})
+@RequestMapping(path = "/api/empresas")
 public class EmpresaRestController {
     
     @Autowired
     private EmpresaService empresaService;
      
-    @PostMapping(path = "/empresas",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearEmpresa(@Valid @RequestBody Empresa empresa, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -68,13 +68,13 @@ public class EmpresaRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/empresas",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Empresa> getEmpresas() {
         return empresaService.findAll();
     }
     
-    @GetMapping(path = "/empresas/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getEmpresaById(@PathVariable("id") String id) {
         Empresa empresa = null;
         Map<String,Object> map = new HashMap<>();
@@ -93,7 +93,7 @@ public class EmpresaRestController {
         return new ResponseEntity<>(empresa,HttpStatus.OK);
     }
     
-    @PutMapping(path = "/empresas/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateEmpresa(@Valid @RequestBody Empresa empresa, BindingResult result,
         @PathVariable("id") String id) {
         Empresa empresaNueva = empresaService.findById(Integer.valueOf(id));
@@ -130,7 +130,7 @@ public class EmpresaRestController {
         return new ResponseEntity<>(map,HttpStatus.NO_CONTENT);
     }
    
-    @DeleteMapping(path = "/empresas/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") String id) {
         empresaService.delete(Integer.valueOf(id)); // Elimina la empresa de acuerdo al ID

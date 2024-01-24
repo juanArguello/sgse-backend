@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Plan;
-import com.sgse.resources.NombreServidor;
+import com.sgse.resources.HostPermitido;
 import com.sgse.service.PlanService;
 
 import jakarta.validation.Valid;
@@ -37,14 +37,14 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
+@CrossOrigin(origins = {HostPermitido.HOST_DEV})
+@RequestMapping(path = "/api/planes")
 public class PlanRestController {
     
     @Autowired
     private PlanService planService;
     
-    @PostMapping(path = "/planes",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearPlan(@Valid @RequestBody Plan plan, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -68,13 +68,13 @@ public class PlanRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/planes",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Plan> getPlanes() {
         return planService.findAll();
     }
     
-    @GetMapping(path = "/planes/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getPlanById(@PathVariable("id") String id) {
         Plan plan = null;
         Map<String,Object> map = new HashMap<>();
@@ -93,7 +93,7 @@ public class PlanRestController {
         return new ResponseEntity<>(plan,HttpStatus.OK);
     }
     
-    @PutMapping(path = "/planes/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updatePlan(@Valid @RequestBody Plan plan, BindingResult result,
         @PathVariable("id") String id ) {
         Plan planNuevo = planService.findById(Integer.valueOf(id));
@@ -128,7 +128,7 @@ public class PlanRestController {
     }
    
     
-    @DeleteMapping(path = "/planes/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePlan(@PathVariable("id") String id) {
         planService.delete(Integer.valueOf(id)); // Elimina el plan de acuerdo al ID

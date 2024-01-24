@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Sucursal;
-import com.sgse.resources.NombreServidor;
+import com.sgse.resources.HostPermitido;
 import com.sgse.service.SucursalService;
 
 import jakarta.validation.Valid;
@@ -37,14 +37,14 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
+@CrossOrigin(origins = {HostPermitido.HOST_DEV})
+@RequestMapping(path = "/api/sucursales")
 public class SucursalRestController {
      
     @Autowired
     private SucursalService sucursalService;
     
-    @PostMapping(path = "/sucursales",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearSucursal(@Valid @RequestBody Sucursal sucursal, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -68,13 +68,13 @@ public class SucursalRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/sucursales",produces ="application/json")
+    @GetMapping(produces ="application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Sucursal> getSucursales() {
         return sucursalService.findAll();
     }
     
-    @GetMapping(path = "/sucursales/{id}",produces ="application/json")
+    @GetMapping(path = "/{id}",produces ="application/json")
     public ResponseEntity<?> getSucursalById(@PathVariable("id") String id) {
         Sucursal sucursal = null;
         Map<String,Object> map = new HashMap<>();
@@ -93,7 +93,7 @@ public class SucursalRestController {
         return new ResponseEntity<>(sucursal,HttpStatus.OK);
     }
     
-    @PutMapping(path = "/sucursales/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateSucursal(@Valid @RequestBody Sucursal sucursal, BindingResult result,
         @PathVariable("id") String id) {
         Sucursal sucursalNuevo = sucursalService.findById(Integer.valueOf(id));
@@ -129,7 +129,7 @@ public class SucursalRestController {
         return new ResponseEntity<>(map,HttpStatus.NO_CONTENT);
     }
    
-    @DeleteMapping(path = "/sucursales/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") String id) {
         sucursalService.delete(Integer.valueOf(id));

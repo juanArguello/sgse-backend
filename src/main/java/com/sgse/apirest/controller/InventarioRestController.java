@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Inventario;
-import com.sgse.resources.NombreServidor;
+import com.sgse.resources.HostPermitido;
 import com.sgse.service.InventarioService;
 
 import jakarta.validation.Valid;
@@ -37,14 +37,14 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
+@CrossOrigin(origins = {HostPermitido.HOST_DEV})
+@RequestMapping(path = "/api/inventarios")
 public class InventarioRestController {
     
     @Autowired
     private InventarioService inventarioService;
     
-    @PostMapping(path = "/inventarios",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearInventario(@Valid @RequestBody Inventario inventario, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -68,13 +68,13 @@ public class InventarioRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/inventarios",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Inventario> getInventarios() {
         return inventarioService.findAll();
     }
     
-    @GetMapping(path = "/inventarios/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getInventarioById(@PathVariable("id") String id) {
         Inventario inventario = null;
         Map<String,Object> map = new HashMap<>();
@@ -93,7 +93,7 @@ public class InventarioRestController {
         return new ResponseEntity<>(inventario,HttpStatus.OK);
     }
     
-    @PutMapping(path = "/inventarios/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateInventario(@Valid @RequestBody Inventario inventario, BindingResult result,
         @PathVariable("id") String id ) {
         Inventario inventarioNuevo = inventarioService.findById(Integer.valueOf(id));
@@ -132,7 +132,7 @@ public class InventarioRestController {
     }
    
     
-    @DeleteMapping(path = "/inventarios/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteRol(@PathVariable("id") String id) {
         inventarioService.delete(Integer.valueOf(id)); // Elimina el inventario de acuerdo al ID

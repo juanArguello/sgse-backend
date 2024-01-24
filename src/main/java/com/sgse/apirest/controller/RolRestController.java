@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Rol;
-import com.sgse.resources.NombreServidor;
+import com.sgse.resources.HostPermitido;
 import com.sgse.service.RolService;
 
 import jakarta.validation.Valid;
@@ -38,16 +37,16 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
-@PreAuthorize("hasRole('ADMINISTRADOR')")
+@CrossOrigin(origins = {HostPermitido.HOST_DEV})
+@RequestMapping(path = "/api/roles")
+//@PreAuthorize("hasRole('ADMINISTRADOR')")
 public class RolRestController {
     
     @Autowired
     private RolService rolService;
      
     //@Secured("ROLE_ADMINISTRADOR")
-    @PostMapping(path = "/roles",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearRol(@Valid @RequestBody Rol rol, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -72,14 +71,14 @@ public class RolRestController {
     }
     
     //@Secured("ROLE_ADMINISTRADOR")
-    @GetMapping(path = "/roles",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Rol> getRoles() {
         return rolService.findAll();
     }
     
     //@Secured("ROLE_ADMINISTRADOR")
-    @GetMapping(path = "/roles/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getRolById(@PathVariable("id") String id) {
         Rol rol = null;
         Map<String,Object> map = new HashMap<>();
@@ -99,7 +98,7 @@ public class RolRestController {
     }
     
     //@Secured("ROLE_ADMINISTRADOR")
-    @PutMapping(path = "/roles/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateRol(@Valid @RequestBody Rol rol, BindingResult result,
         @PathVariable("id") String id ) {
         Rol rolNuevo = rolService.findById(Integer.valueOf(id));
@@ -136,13 +135,13 @@ public class RolRestController {
     }
    
     //@Secured("ROLE_ADMINISTRADOR")
-    @DeleteMapping(path = "/roles/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteRol(@PathVariable("id") String id) {
         rolService.delete(Integer.valueOf(id)); // Elimina el rol de acuerdo al ID
     }
     
-    @GetMapping(path = "/roles/cantidad",produces = "text/plain")
+    @GetMapping(path = "/cantidad",produces = "text/plain")
     @ResponseStatus(HttpStatus.OK)
     public String cantidadRoles() {
         return String.valueOf(rolService.cantidadFilas());

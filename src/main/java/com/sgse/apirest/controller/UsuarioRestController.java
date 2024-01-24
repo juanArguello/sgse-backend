@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Usuario;
-import com.sgse.resources.NombreServidor;
+import com.sgse.resources.HostPermitido;
 import com.sgse.resources.Paginacion;
 import com.sgse.service.UsuarioService;
 
@@ -41,20 +41,17 @@ import jakarta.validation.Valid;
  */
 
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping(value = "/api")
+@CrossOrigin(origins = {HostPermitido.HOST_DEV})
+@RequestMapping(path = "/api/usuarios")
 public class UsuarioRestController {
      
     @Autowired
     private UsuarioService usuarioService;
     
-	/*
-	 * @Autowired private MailService mailService;
-	 */
-    
-  
+	//@Autowired private MailService mailService;
+	 
     //@Secured("ROLE_ADMINISTRADOR")
-    @PostMapping(path = "/usuarios",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearUsuario(@Valid @RequestBody Usuario usuario, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -95,13 +92,13 @@ public class UsuarioRestController {
     }
     
     //@Secured("ROLE_ADMINISTRADOR")
-    @GetMapping(path = "/usuarios",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Usuario> getUsuarios() {
         return usuarioService.findAll();
     }
  
-    @GetMapping(path = "/usuarios/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getUsuarioById(@PathVariable("id") String id){
         Usuario usuario = null;
         Map<String,Object> map = new HashMap<>();
@@ -120,14 +117,14 @@ public class UsuarioRestController {
         return new ResponseEntity<>(usuario,HttpStatus.OK);
     }
     
-    @GetMapping(path="/usuarios/page/{page}",produces = "application/json")
+    @GetMapping(path="/page/{page}",produces = "application/json")
     public Paginacion<Usuario> getUsuariosPaginado(@PathVariable("page") Integer page){
     	int tamanhoPagina = 8;
 		return usuarioService.getUsuariosPaginado(page,tamanhoPagina);
 	}
     
      
-    @GetMapping(path = "/usuarios/username={nombreUsuario}",produces = "application/json")
+    @GetMapping(path = "/username={nombreUsuario}",produces = "application/json")
     public ResponseEntity<?> getUsuarioByUsername(@PathVariable("nombreUsuario") String nombreUsuario) {
         Usuario usuario = null;
         Map<String,Object> map = new HashMap<>();
@@ -148,7 +145,7 @@ public class UsuarioRestController {
     }
     
     //@Secured("ROLE_ADMINISTRADOR")
-    @PutMapping(path = "/usuarios/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateUsuario(@Valid @RequestBody Usuario usuario, BindingResult result,
         @PathVariable("id") String id) {
         Usuario user = usuarioService.findById(Integer.valueOf(id));
@@ -196,13 +193,13 @@ public class UsuarioRestController {
     }
     
     //@Secured("ROLE_ADMINISTRADOR")
-    @DeleteMapping(path = "/usuarios/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUsuario(@PathVariable("id") String id) {
         usuarioService.delete(Integer.valueOf(id)); // Elimina el usuario de acuerdo al ID
     }
     
-    @GetMapping(path = "/usuarios/cantidad",produces = "text/plain")
+    @GetMapping(path = "/cantidad",produces = "text/plain")
     @ResponseStatus(HttpStatus.OK)
     public String cantidadUsuarios() {
         return String.valueOf(usuarioService.cantidadFilas());

@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Permisos;
-import com.sgse.resources.NombreServidor;
 import com.sgse.resources.Paginacion;
 import com.sgse.service.PermisoService;
 
@@ -38,15 +37,15 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
+@CrossOrigin
+@RequestMapping(path = "/api/permisos")
 public class PermisoRestController {
     
     @Autowired
     private PermisoService permisoService;
     
     //@Secured("ROLE_ADMINISTRADOR")
-    @PostMapping(path = "/permisos", consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearPermisos(@Valid @RequestBody Permisos permisos,BindingResult result) {
     	Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -73,20 +72,21 @@ public class PermisoRestController {
     }
         
     //@Secured("ROLE_ADMINISTRADOR")
-    @GetMapping(path = "/permisos",produces = "application/json")
+    //@PreAuthorize("hasAuthority('listar permiso')")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Permisos> getPermisos() {
         return permisoService.findAll();
     }
     
-    @GetMapping(path="/permisos/page/{page}",produces = "application/json")
+    @GetMapping(path="/page/{page}",produces = "application/json")
     public Paginacion<Permisos> getPermisosPaginado(@PathVariable("page") Integer page){
     	int tamanhoPagina = 8;
 		return permisoService.getPermisosPaginado(page,tamanhoPagina);
 	}
     
    //@Secured("ROLE_ADMINISTRADOR")
-    @GetMapping(path = "/permisos/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getPermisoById(@PathVariable("id") String id) {
         Permisos permisos = null;
         Map<String,Object> map = new HashMap<>();
@@ -106,7 +106,7 @@ public class PermisoRestController {
     }
     
    //@Secured("ROLE_ADMINISTRADOR")
-    @PutMapping(path = "/permisos/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updatePermiso(@Valid @RequestBody Permisos permisos, BindingResult result,
         @PathVariable("id") String id) {
         Permisos permisoNuevo = permisoService.findById(Integer.valueOf(id));
@@ -142,13 +142,13 @@ public class PermisoRestController {
     }
 
     //@Secured("ROLE_ADMINISTRADOR")
-    @DeleteMapping("/permisos/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePermiso(@PathVariable("id") String id) {
         permisoService.delete(Integer.valueOf(id)); // Elimina el permiso de acuerdo al ID
     }
     
-    @GetMapping(path = "/permisos/cantidad",produces = "text/plain")
+    @GetMapping(path = "/cantidad",produces = "text/plain")
     @ResponseStatus(HttpStatus.OK)
     public String cantidadPermisos() {
         return String.valueOf(permisoService.cantidadFilas());

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.ContratoVenta;
-import com.sgse.resources.NombreServidor;
+import com.sgse.resources.HostPermitido;
 import com.sgse.service.ContratoVentaService;
 
 import jakarta.validation.Valid;
@@ -37,14 +37,14 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
+@CrossOrigin(origins = {HostPermitido.HOST_DEV})
+@RequestMapping(path = "/api/contratoventas")
 public class ContratoVentaRestController {
     
     @Autowired
     private ContratoVentaService contratoVentaService;
         
-    @PostMapping(path = "/contratoventas",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearContratoVenta(@Valid @RequestBody ContratoVenta contratoVenta, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -68,13 +68,13 @@ public class ContratoVentaRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/contratoventas",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<ContratoVenta> getContratoVentas() {
         return contratoVentaService.findAll();
     }
     
-    @GetMapping(path = "/contratoventas/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getContratoVentaById(@PathVariable("id") String id) {
         ContratoVenta contratoVenta = null;
         Map<String,Object> map = new HashMap<>();
@@ -93,7 +93,7 @@ public class ContratoVentaRestController {
         return new ResponseEntity<>(contratoVenta,HttpStatus.OK);
     }
     
-    @PutMapping(path = "/contratoventas/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateContratoVenta(@Valid @RequestBody ContratoVenta contratoVenta, BindingResult result,
         @PathVariable("id") String id ) {
         ContratoVenta contratoVentaNuevo = contratoVentaService.findById(Integer.valueOf(id));
@@ -135,7 +135,7 @@ public class ContratoVentaRestController {
         return new ResponseEntity<>(map,HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping(path = "/contratoventas/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteContratoVenta(@PathVariable("id") String id) {
         contratoVentaService.delete(Integer.valueOf(id)); // Elimina el Contrato de Venta de acuerdo al ID

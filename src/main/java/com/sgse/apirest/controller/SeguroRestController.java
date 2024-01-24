@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Seguro;
-import com.sgse.resources.NombreServidor;
+import com.sgse.resources.HostPermitido;
 import com.sgse.service.SeguroService;
 
 import jakarta.validation.Valid;
@@ -37,14 +37,14 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
+@CrossOrigin(origins = {HostPermitido.HOST_DEV})
+@RequestMapping(path = "/api/seguros")
 public class SeguroRestController {
     
     @Autowired
     private SeguroService seguroService;
     
-    @PostMapping(path = "/seguros",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearSeguro(@Valid @RequestBody Seguro seguro, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -68,13 +68,13 @@ public class SeguroRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/seguros",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Seguro> getSeguros() {
         return seguroService.findAll();
     }
     
-    @GetMapping(path = "/seguros/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getSeguroById(@PathVariable("id") String id) {
         Seguro seguro = null;
         Map<String,Object> map = new HashMap<>();
@@ -93,7 +93,7 @@ public class SeguroRestController {
         return new ResponseEntity<>(seguro,HttpStatus.OK);
     }
     
-    @PutMapping(path = "/seguros/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateSeguro(@Valid @RequestBody Seguro seguro, BindingResult result,
         @PathVariable("id") String id) {
         Seguro seguroNuevo = seguroService.findById(Integer.valueOf(id));
@@ -130,7 +130,7 @@ public class SeguroRestController {
         return new ResponseEntity<>(map,HttpStatus.NO_CONTENT);
     }
     
-    @DeleteMapping(path = "/seguros/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSeguro(@PathVariable("id") String id) {
         seguroService.delete(Integer.valueOf(id));

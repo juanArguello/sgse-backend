@@ -9,7 +9,7 @@ exequiales para la empresa Futuro, sus principales funciones son:
 ## Recursos implementado en el sistema
 
 El sistema SGSE utiliza el gestor de contrucción y dependencia [Maven](https://maven.apache.org/), en el back-end  
-utiliza el lenguaje Java versión 11 y el framework [Spring](https://github.com/spring-projects/spring-boot/tree/2.7.x) versión 2.7.9.RELEASE. 
+utiliza el lenguaje Java versión 17 LTS y el framework [Spring](https://github.com/spring-projects/spring-boot/tree/3.1.x) versión 3.1.x.RELEASE. 
 El servidor de base de datos es  
 [PostgreSQL](https://www.postgresql.org/) y el servidor de aplicación es [Apache Tomcat](http://tomcat.apache.org/). 
 

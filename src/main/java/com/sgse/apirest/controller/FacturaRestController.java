@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Factura;
-import com.sgse.resources.NombreServidor;
+import com.sgse.resources.HostPermitido;
 import com.sgse.service.FacturaService;
 
 import jakarta.validation.Valid;
@@ -38,14 +38,14 @@ import jakarta.validation.Valid;
  */
 
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping(value = "/api")
+@CrossOrigin(origins = {HostPermitido.HOST_DEV})
+@RequestMapping(path = "/api/facturas")
 public class FacturaRestController {
     
     @Autowired
     private FacturaService facturaService;
        
-    @PostMapping(path = "/facturas",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearFactura(@Valid @RequestBody Factura factura, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -69,13 +69,13 @@ public class FacturaRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/facturas",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Factura> getFacturas() {
         return facturaService.findAll();
     }
     
-    @GetMapping(path = "/facturas/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getFacturaById(@PathVariable("id") String id) {
         Factura factura = null;
         Map<String,Object> map = new HashMap<>();
@@ -94,7 +94,7 @@ public class FacturaRestController {
         return new ResponseEntity<>(factura,HttpStatus.OK);
     }
     
-    @PutMapping(path = "/facturas/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateFactura(@Valid @RequestBody Factura factura, BindingResult result,
         @PathVariable("id") String id ) {
         Factura facturaNueva = facturaService.findById(Integer.valueOf(id));
@@ -143,7 +143,7 @@ public class FacturaRestController {
         return new ResponseEntity<>(map,HttpStatus.NO_CONTENT);
     }
  
-    @DeleteMapping("/facturas/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFactura(@PathVariable("id") String id) {
         facturaService.delete(Integer.valueOf(id)); // Elimina la factura de acuerdo al ID

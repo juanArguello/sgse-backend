@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sgse.entities.Compra;
-import com.sgse.resources.NombreServidor;
 import com.sgse.service.CompraService;
 
 import jakarta.validation.Valid;
@@ -37,14 +36,14 @@ import jakarta.validation.Valid;
  * @version 1.0
  */
 @RestController
-@CrossOrigin(origins = {NombreServidor.DOMINIO_LOCAL})
-@RequestMapping("/api")
+@CrossOrigin
+@RequestMapping(path = "/api/compras")
 public class CompraRestController {
     
     @Autowired
     private CompraService compraService;
     
-    @PostMapping(path = "/compras",consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<?> crearCompra(@Valid @RequestBody Compra compra, BindingResult result) {
         Map<String,Object> map = new HashMap<>();
         if(result.hasErrors()){ // verifica si hay errores en los campos de datos JSON
@@ -68,13 +67,13 @@ public class CompraRestController {
         return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/compras",produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<Compra> getCompras() {
         return compraService.findAll();
     }
     
-    @GetMapping(path = "/compras/{id}",produces = "application/json")
+    @GetMapping(path = "/{id}",produces = "application/json")
     public ResponseEntity<?> getCompraById(@PathVariable("id") String id) {
         Compra compra = null;
         Map<String,Object> map = new HashMap<>();
@@ -93,7 +92,7 @@ public class CompraRestController {
         return new ResponseEntity<>(compra,HttpStatus.OK);
     }
     
-    @PutMapping(path = "/compras/{id}",consumes = "application/json")
+    @PutMapping(path = "/{id}",consumes = "application/json")
     public ResponseEntity<?> updateCompra(@Valid @RequestBody Compra compra, BindingResult result,
         @PathVariable("id") String id ) {
         Compra compraNuevo = compraService.findById(Integer.valueOf(id));
@@ -130,7 +129,7 @@ public class CompraRestController {
     }
    
     
-    @DeleteMapping(path = "/compras/{id}")
+    @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCompra(@PathVariable("id") String id) {
         compraService.delete(Integer.valueOf(id)); // Elimina la compra de acuerdo al ID

@@ -25,82 +25,81 @@ import jakarta.persistence.TemporalType;
 @Table(name = "compra")
 public class Compra implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
-    @EmbeddedId
-    private CompraPK compraPK;
-    
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
-    
-    @Column(name = "monto")
-    private int monto;
-    
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Cliente cliente;
-    
-    @JoinColumn(name = "id_seguro", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Seguro seguro;
+	private static final long serialVersionUID = 1L;
 
-    public Compra() {
-    }
+	@EmbeddedId
+	private CompraPK compraPK;
 
-    public Compra(CompraPK compraPK) {
-        this.compraPK = compraPK;
-    }
+	@Column(name = "fecha")
+	@Temporal(TemporalType.DATE)
+	private Date fecha;
 
-    public Compra(CompraPK compraPK, Date fecha, int monto) {
-        this.compraPK = compraPK;
-        this.fecha = fecha;
-        this.monto = monto;
-    }
+	@Column(name = "monto")
+	private int monto;
 
-    public Compra(int idCliente, int idSeguro) {
-        this.compraPK = new CompraPK(idCliente, idSeguro);
-    }
+	@JoinColumn(name = "id_cliente", referencedColumnName = "id", insertable = false, updatable = false)
+	@ManyToOne(optional = false)
+	private Cliente cliente;
 
-    public CompraPK getCompraPK() {
-        return compraPK;
-    }
+	@JoinColumn(name = "id_seguro", referencedColumnName = "id", insertable = false, updatable = false)
+	@ManyToOne(optional = false)
+	private Seguro seguro;
 
-    public void setCompraPK(CompraPK compraPK) {
-        this.compraPK = compraPK;
-    }
+	public Compra() {
+	}
 
-    public Date getFecha() {
-        return fecha;
-    }
+	public Compra(CompraPK compraPK) {
+		this.compraPK = compraPK;
+	}
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+	public Compra(CompraPK compraPK, Date fecha, int monto) {
+		this.compraPK = compraPK;
+		this.fecha = fecha;
+		this.monto = monto;
+	}
 
-    public int getMonto() {
-        return monto;
-    }
+	public Compra(int idCliente, int idSeguro) {
+		this.compraPK = new CompraPK(idCliente, idSeguro);
+	}
 
-    public void setMonto(int monto) {
-        this.monto = monto;
-    }
+	public CompraPK getCompraPK() {
+		return compraPK;
+	}
 
-    public Cliente getCliente() {
-        return cliente;
-    }
+	public void setCompraPK(CompraPK compraPK) {
+		this.compraPK = compraPK;
+	}
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
+	public Date getFecha() {
+		return fecha;
+	}
 
-    public Seguro getSeguro() {
-        return seguro;
-    }
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 
-    public void setSeguro(Seguro seguro) {
-        this.seguro = seguro;
-    }
+	public int getMonto() {
+		return monto;
+	}
 
-    
+	public void setMonto(int monto) {
+		this.monto = monto;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Seguro getSeguro() {
+		return seguro;
+	}
+
+	public void setSeguro(Seguro seguro) {
+		this.seguro = seguro;
+	}
+
 }

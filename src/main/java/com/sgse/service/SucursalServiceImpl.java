@@ -18,40 +18,40 @@ import com.sgse.entities.Sucursal;
  * @version 1.0
  */
 @Service(value = "sucursalService")
-public class SucursalServiceImpl implements SucursalService{
+public class SucursalServiceImpl implements SucursalService {
 
-    @Autowired
-    private SucursalDao sucursalDao;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(Sucursal sucursal) {
-        sucursalDao.create(sucursal);
-    }
+	@Autowired
+	private SucursalDao sucursalDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public Sucursal findById(int id) {
-        return sucursalDao.findById(id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(Sucursal sucursal) {
+		sucursalDao.create(sucursal);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Sucursal> findAll() {
-        return sucursalDao.findAll();
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public Sucursal findById(int id) {
+		return sucursalDao.findById(id);
+	}
 
-    @Override
-    @Transactional
-    public void update(Sucursal sucursal) {
-        sucursalDao.update(sucursal);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<Sucursal> findAll() {
+		return sucursalDao.findAll();
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        sucursalDao.delete(id);
-    }
-    
+	@Override
+	@Transactional
+	public void update(Sucursal sucursal) {
+		sucursalDao.update(sucursal);
+	}
+
+	@Override
+	@Transactional
+	public void delete(int id) {
+		sucursalDao.delete(id);
+	}
+
 }

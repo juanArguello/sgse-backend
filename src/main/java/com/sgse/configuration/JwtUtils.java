@@ -30,7 +30,6 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 
-
 /**
  * @author Juan Carlos Arguello Ortiz
  * @version 1.0
@@ -38,66 +37,66 @@ import io.jsonwebtoken.security.SignatureException;
 public class JwtUtils {
 
 	private static Logger logger = LoggerFactory.getLogger(JwtUtils.class);
-	
+
 	private final static String ACCESS_TOKEN_SECRET = "ghpTXQnTFjFLc7E6PcxnGdWnKr4oMAdQG3SiQP9CxnKypJf4q3w0m";
 	private final static Long ACCESS_TOKEN_VALIDITY_SECONDS = 2_592_000L; // 30 dias de duracion del token
-	
+
 	/**
 	 * Genera un token de acceso
+	 * 
 	 * @param userDetails
 	 * @return String
 	 */
 	public static String generateToken(UserDetailsImpl userDetails) {
 		long expirationTime = ACCESS_TOKEN_VALIDITY_SECONDS * 1_000; // converitr en milisegundos
 		Date expirationDate = new Date(System.currentTimeMillis() + expirationTime);
-		
+
 		Map<String, Object> permisosMap = new HashMap<>();
 		permisosMap.put("permisos", userDetails.getAuthorities());
-		return Jwts.builder()
-				.subject(userDetails.getUsername())
-				.issuedAt(new Date(System.currentTimeMillis()))
-				.expiration(expirationDate)
-				.claim("rol", userDetails.getRol())
-				.claims(permisosMap)
-				.signWith(getKey())
+		return Jwts.builder().subject(userDetails.getUsername()).issuedAt(new Date(System.currentTimeMillis()))
+				.expiration(expirationDate).claim("rol", userDetails.getRol()).claims(permisosMap).signWith(getKey())
 				.compact();
-		
+
 	}
-	
+
 	/**
-	 * El metodo getAuthentication recibe una cadena de token, la cual mapea el cuerpo payload,
-	 * retornando una instancia {@link UsernamePasswordAuthenticationToken}
+	 * El metodo getAuthentication recibe una cadena de token, la cual mapea el
+	 * cuerpo payload, retornando una instancia
+	 * {@link UsernamePasswordAuthenticationToken}
+	 * 
 	 * @param token
 	 * @return {@link UsernamePasswordAuthenticationToken}
 	 */
-	public static UsernamePasswordAuthenticationToken getAuthentication(String token){
+	public static UsernamePasswordAuthenticationToken getAuthentication(String token) {
 		ObjectMapper mapper = new ObjectMapper();
 		List<SimpleGrantedAuthority> authorities = null;
 		String username = "";
 		Claims claims = parseClaims(token);
-		
-		if(claims != null) {
+
+		if (claims != null) {
 			username = claims.getSubject();
-		}else {
+		} else {
 			return null;
 		}
-		
-		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES,true);
+
+		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 		mapper.registerModule(new SimpleModule().addDeserializer(SimpleGrantedAuthority.class,
 				new SimpleGrantedAuthorityDeserializer()));
-		try { 
-			authorities = mapper.readValue(new ObjectMapper().writeValueAsString(claims.get("permisos",List.class)),
-					new TypeReference<List<SimpleGrantedAuthority>>(){});
-		} catch (JsonMappingException e) { 
+		try {
+			authorities = mapper.readValue(new ObjectMapper().writeValueAsString(claims.get("permisos", List.class)),
+					new TypeReference<List<SimpleGrantedAuthority>>() {
+					});
+		} catch (JsonMappingException e) {
 			logger.error(e.getMessage());
 		} catch (JsonProcessingException e) {
 			logger.error(e.getMessage());
 		}
 		return new UsernamePasswordAuthenticationToken(username, null, authorities);
 	}
-	
+
 	/**
 	 * Obtiene una implementacion de UserDetails
+	 * 
 	 * @param token
 	 * @return {@link UserDetails}
 	 */
@@ -106,30 +105,32 @@ public class JwtUtils {
 		List<GrantedAuthority> authorities = null;
 		String username = "";
 		Claims claims = parseClaims(token);
-		
-		if(claims != null) {
+
+		if (claims != null) {
 			username = claims.getSubject();
-		}else {
+		} else {
 			return null;
 		}
-		
-		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES,true);
-		mapper.registerModule(new SimpleModule()
-					.addDeserializer(SimpleGrantedAuthority.class, new SimpleGrantedAuthorityDeserializer()));
+
+		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+		mapper.registerModule(new SimpleModule().addDeserializer(SimpleGrantedAuthority.class,
+				new SimpleGrantedAuthorityDeserializer()));
 		try {
-			authorities = mapper.readValue(new ObjectMapper().writeValueAsString(claims.get("permisos",List.class)),
-					new TypeReference<List<GrantedAuthority>>(){});
+			authorities = mapper.readValue(new ObjectMapper().writeValueAsString(claims.get("permisos", List.class)),
+					new TypeReference<List<GrantedAuthority>>() {
+					});
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
+
 		return new UserDetailsImpl(username, null, authorities);
 	}
-	
+
 	/**
 	 * Obtiene los permisos a traves del token
+	 * 
 	 * @param token
 	 * @return {@link List<SimpleGrantedAuthority>}
 	 */
@@ -137,18 +138,18 @@ public class JwtUtils {
 		ObjectMapper mapper = new ObjectMapper();
 		List<SimpleGrantedAuthority> authorities = null;
 		Claims claims = parseClaims(token);
-		
-		if(claims == null) {
+
+		if (claims == null) {
 			return null;
 		}
-		
-		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES,true);
-		mapper.registerModule(new SimpleModule()
-					.addDeserializer(SimpleGrantedAuthority.class, new SimpleGrantedAuthorityDeserializer()));
+
+		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+		mapper.registerModule(new SimpleModule().addDeserializer(SimpleGrantedAuthority.class,
+				new SimpleGrantedAuthorityDeserializer()));
 		try {
-			authorities = mapper.readValue(new ObjectMapper()
-					.writeValueAsString(claims.get("permisos",List.class)),
-					new TypeReference<List<SimpleGrantedAuthority>>(){});
+			authorities = mapper.readValue(new ObjectMapper().writeValueAsString(claims.get("permisos", List.class)),
+					new TypeReference<List<SimpleGrantedAuthority>>() {
+					});
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
@@ -156,27 +157,23 @@ public class JwtUtils {
 		}
 		return authorities;
 	}
-	
+
 	// Obtiene el username a traves del token
 	public static String getUsernameFromToken(String token) {
 		Claims claims = parseClaims(token);
-		return claims != null ? claims.getSubject() : "" ;
+		return claims != null ? claims.getSubject() : "";
 	}
-	
+
 	// Obtiene el rol a traves del token
 	public static String getRolFromToken(String token) {
 		Claims claims = parseClaims(token);
-		return claims != null ? claims.get("rol", String.class) : "" ;
+		return claims != null ? claims.get("rol", String.class) : "";
 	}
-	
+
 	// Parsea el playload del token
 	private static Claims parseClaims(String token) {
 		try {
-			return Jwts.parser()
-					.verifyWith(getKey())
-					.build()
-					.parseSignedClaims(token)
-					.getPayload();
+			return Jwts.parser().verifyWith(getKey()).build().parseSignedClaims(token).getPayload();
 		} catch (SignatureException e) {
 			logger.error("Invalid JWT signature ");
 		} catch (MalformedJwtException e) {
@@ -187,13 +184,13 @@ public class JwtUtils {
 			logger.error("JWT token is unsupported ");
 		} catch (IllegalArgumentException e) {
 			logger.error("JWT claims string is empty ");
-		} 
+		}
 		return null;
 	}
-	
+
 	private static SecretKey getKey() {
-		byte [] keyBytes = Decoders.BASE64.decode(ACCESS_TOKEN_SECRET);
+		byte[] keyBytes = Decoders.BASE64.decode(ACCESS_TOKEN_SECRET);
 		return Keys.hmacShaKeyFor(keyBytes);
 	}
-	
+
 }

@@ -17,37 +17,36 @@ import com.sgse.entities.Inventario;
  * @version 1.0
  */
 @Repository("inventarioDao")
-public class InventarioDaoImpl implements InventarioDao{
-    
-    @Autowired
-    private SessionFactory sessionFactory;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    public void create(Inventario inventario) {
-        sessionFactory.getCurrentSession()
-            .persist(inventario);
-    }
+public class InventarioDaoImpl implements InventarioDao {
 
-    @Override
-    public Inventario findById(int id) {
-        return sessionFactory.getCurrentSession().get(Inventario.class, id);
-    }
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    @Override
-    public List<Inventario> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Inventario i order by i.id asc", Inventario.class).getResultList();
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	public void create(Inventario inventario) {
+		sessionFactory.getCurrentSession().persist(inventario);
+	}
 
-    @Override
-    public void update(Inventario inventario) {
-        sessionFactory.getCurrentSession().merge(inventario);
-    }
+	@Override
+	public Inventario findById(int id) {
+		return sessionFactory.getCurrentSession().get(Inventario.class, id);
+	}
 
-    @Override
-    public void delete(int id) {
-        sessionFactory.getCurrentSession()
-            .remove(sessionFactory.getCurrentSession().get(Inventario.class, id));
-    }
-    
+	@Override
+	public List<Inventario> findAll() {
+		return sessionFactory.getCurrentSession().createQuery("from Inventario i order by i.id asc", Inventario.class)
+				.getResultList();
+	}
+
+	@Override
+	public void update(Inventario inventario) {
+		sessionFactory.getCurrentSession().merge(inventario);
+	}
+
+	@Override
+	public void delete(int id) {
+		sessionFactory.getCurrentSession().remove(sessionFactory.getCurrentSession().get(Inventario.class, id));
+	}
+
 }

@@ -14,11 +14,16 @@ import com.sgse.resources.Paginacion;
  * @version 1.0
  */
 public interface ServicioService {
-    // Definicion de los metodos CRUD de la interfaz ServicioService
-    public void create(Servicios servicios);
-    public Servicios findById(int id);  
-    public List<Servicios> findAll();
-    public Paginacion<Servicios> getServiciosPaginado(int numeroPagina, int tamanhoPagina);
-    public void update(Servicios servicios);
-    public void delete(int id);
+	// Definicion de los metodos CRUD de la interfaz ServicioService
+	public void create(Servicios servicios);
+
+	public Servicios findById(int id);
+
+	public List<Servicios> findAll();
+
+	public Paginacion<Servicios> getServiciosPaginado(int numeroPagina, int tamanhoPagina);
+
+	public void update(Servicios servicios);
+
+	public void delete(int id);
 }

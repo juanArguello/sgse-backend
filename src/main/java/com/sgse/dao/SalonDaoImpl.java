@@ -17,37 +17,36 @@ import com.sgse.entities.Salon;
  * @version 1.0
  */
 @Repository("salonDao")
-public class SalonDaoImpl implements SalonDao{
+public class SalonDaoImpl implements SalonDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    public void create(Salon salon) {
-        sessionFactory.getCurrentSession()
-            .persist(salon);
-    }
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    @Override
-    public Salon findById(int id) {
-        return sessionFactory.getCurrentSession().get(Salon.class, id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	public void create(Salon salon) {
+		sessionFactory.getCurrentSession().persist(salon);
+	}
 
-    @Override
-    public List<Salon> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Salon s order by s.id asc", Salon.class).getResultList();
-    }
+	@Override
+	public Salon findById(int id) {
+		return sessionFactory.getCurrentSession().get(Salon.class, id);
+	}
 
-    @Override
-    public void update(Salon salon) {
-        sessionFactory.getCurrentSession().merge(salon);
-    }
+	@Override
+	public List<Salon> findAll() {
+		return sessionFactory.getCurrentSession().createQuery("from Salon s order by s.id asc", Salon.class)
+				.getResultList();
+	}
 
-    @Override
-    public void delete(int id) {
-        sessionFactory.getCurrentSession()
-            .remove(sessionFactory.getCurrentSession().get(Salon.class, id));
-    }
-    
+	@Override
+	public void update(Salon salon) {
+		sessionFactory.getCurrentSession().merge(salon);
+	}
+
+	@Override
+	public void delete(int id) {
+		sessionFactory.getCurrentSession().remove(sessionFactory.getCurrentSession().get(Salon.class, id));
+	}
+
 }

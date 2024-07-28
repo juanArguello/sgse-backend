@@ -64,26 +64,22 @@ public class UserDetailsImpl implements UserDetails {
 
 	public static UserDetailsImpl buildUser(Usuario usuario) {
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority("ROLE_"+usuario.getIdRol().getNombre()));
-		authorities.addAll(usuario.getIdRol().getPermisosList()
-				.stream()
-				.map(permiso -> new SimpleGrantedAuthority(permiso.getNombre()))
-				.collect(Collectors.toList()));
+		authorities.add(new SimpleGrantedAuthority("ROLE_" + usuario.getIdRol().getNombre()));
+		authorities.addAll(usuario.getIdRol().getPermisosList().stream()
+				.map(permiso -> new SimpleGrantedAuthority(permiso.getNombre())).collect(Collectors.toList()));
 
 		return new UserDetailsImpl(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(),
 				usuario.getEnabled(), usuario.getEnabled(), usuario.getEnabled(), authorities);
 	}
-	
+
 	private List<GrantedAuthority> createAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		//authorities.add(new SimpleGrantedAuthority(usuario.getIdRol().getNombre()));
-		authorities.addAll(usuario.getIdRol().getPermisosList()
-			.stream()
-			.map(permiso -> new SimpleGrantedAuthority(permiso.getNombre()))
-			.collect(Collectors.toList()));
+		// authorities.add(new SimpleGrantedAuthority(usuario.getIdRol().getNombre()));
+		authorities.addAll(usuario.getIdRol().getPermisosList().stream()
+				.map(permiso -> new SimpleGrantedAuthority(permiso.getNombre())).collect(Collectors.toList()));
 		return authorities;
 	}
-	
+
 	public Usuario getUsuario() {
 		return this.usuario;
 	}
@@ -93,10 +89,7 @@ public class UserDetailsImpl implements UserDetails {
 	}
 
 	public List<String> getPermisos() {
-		List<String> permisos = this.authorities
-				.stream()
-				.map(item -> item.getAuthority())
-				.collect(Collectors.toList());
+		List<String> permisos = this.authorities.stream().map(item -> item.getAuthority()).collect(Collectors.toList());
 		return permisos;
 	}
 

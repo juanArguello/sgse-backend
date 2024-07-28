@@ -20,8 +20,8 @@ import jakarta.servlet.http.HttpServletResponse;
  * @version 1.0
  */
 @Component
-public class JwtAuthorizationFilter extends OncePerRequestFilter{
-	
+public class JwtAuthorizationFilter extends OncePerRequestFilter {
+
 	// Filtra las peticiones Http, mediante la obtencion del token
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -30,7 +30,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter{
 		if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
 			String token = bearerToken.replace("Bearer ", "");
 			UsernamePasswordAuthenticationToken authenticationToken = JwtUtils.getAuthentication(token);
-			if(authenticationToken != null) {
+			if (authenticationToken != null) {
 				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 			}

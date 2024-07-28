@@ -24,7 +24,6 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-
 /**
  *
  * @author Juan Carlos Argüello Ortiz
@@ -32,74 +31,73 @@ import jakarta.validation.constraints.Size;
  */
 @Entity
 @Table(name = "permisos")
-public class Permisos implements Serializable{
+public class Permisos implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-  
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
-    private Integer id; 
-    
-    @NotEmpty(message = "no puede estar vacio")
-    @Size(min = 4, max = 30, message = "el tamaño tiene que estar entre 4 y 30")
-    @Column(name = "nombre", unique = true)
-    private String nombre;
-    
-    @NotEmpty(message = "no puede estar vacio")
-    @Column(name = "descripcion")
-    private String descripcion;
-    
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonIgnoreProperties(value = {"permisosList","hibernateLazyInitializer","handler"})
-    @ManyToMany(mappedBy = "permisosList",fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Rol> rolList;
+	private static final long serialVersionUID = 1L;
 
-    public Permisos() {
-        this.rolList = new ArrayList<>();
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id")
+	private Integer id;
 
-    public Permisos(Integer id) {
-        this.id = id;
-    }
+	@NotEmpty(message = "no puede estar vacio")
+	@Size(min = 4, max = 31, message = "el tamaño tiene que estar entre 4 y 31")
+	@Column(name = "nombre", unique = true)
+	private String nombre;
 
-    public Permisos(Integer id, String nombre, String descripcion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
+	@NotEmpty(message = "no puede estar vacio")
+	@Column(name = "descripcion")
+	private String descripcion;
 
-    public Integer getId() {
-        return id;
-    }
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonIgnoreProperties(value = { "permisosList", "hibernateLazyInitializer", "handler" })
+	@ManyToMany(mappedBy = "permisosList", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<Rol> rolList;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Permisos() {
+		this.rolList = new ArrayList<>();
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public Permisos(Integer id) {
+		this.id = id;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public Permisos(Integer id, String nombre, String descripcion) {
+		this.id = id;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+	}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public List<Rol> getRolList() {
-        return Collections.unmodifiableList(rolList);
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public void setRolList(List<Rol> rolList) {
-        this.rolList = rolList;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-   
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public List<Rol> getRolList() {
+		return Collections.unmodifiableList(rolList);
+	}
+
+	public void setRolList(List<Rol> rolList) {
+		this.rolList = rolList;
+	}
+
 }

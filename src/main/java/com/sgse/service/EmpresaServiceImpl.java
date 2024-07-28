@@ -18,40 +18,40 @@ import com.sgse.entities.Empresa;
  * @version 1.0
  */
 @Service(value = "empresaService")
-public class EmpresaServiceImpl implements EmpresaService{
+public class EmpresaServiceImpl implements EmpresaService {
 
-    @Autowired
-    private EmpresaDao empresaDao;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(Empresa empresa) {
-        empresaDao.create(empresa);
-    }
+	@Autowired
+	private EmpresaDao empresaDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public Empresa findById(int id) {
-        return empresaDao.findById(id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(Empresa empresa) {
+		empresaDao.create(empresa);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Empresa> findAll() {
-        return empresaDao.findAll();
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public Empresa findById(int id) {
+		return empresaDao.findById(id);
+	}
 
-    @Override
-    @Transactional
-    public void update(Empresa empresa) {
-        empresaDao.update(empresa);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<Empresa> findAll() {
+		return empresaDao.findAll();
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        empresaDao.delete(id);
-    }
-    
+	@Override
+	@Transactional
+	public void update(Empresa empresa) {
+		empresaDao.update(empresa);
+	}
+
+	@Override
+	@Transactional
+	public void delete(int id) {
+		empresaDao.delete(id);
+	}
+
 }

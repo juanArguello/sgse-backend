@@ -18,40 +18,40 @@ import com.sgse.entities.Compra;
  * @version 1.0
  */
 @Service(value = "compraService")
-public class CompraServiceImpl implements CompraService{
+public class CompraServiceImpl implements CompraService {
 
-    @Autowired
-    private CompraDao compraDao;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(Compra compra) {
-        compraDao.create(compra);
-    }
+	@Autowired
+	private CompraDao compraDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public Compra findById(int id) {
-        return compraDao.findById(id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(Compra compra) {
+		compraDao.create(compra);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Compra> findAll() {
-        return compraDao.findAll();
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public Compra findById(int id) {
+		return compraDao.findById(id);
+	}
 
-    @Override
-    @Transactional
-    public void update(Compra compra) {
-        compraDao.update(compra);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<Compra> findAll() {
+		return compraDao.findAll();
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        compraDao.delete(id);
-    }
-    
+	@Override
+	@Transactional
+	public void update(Compra compra) {
+		compraDao.update(compra);
+	}
+
+	@Override
+	@Transactional
+	public void delete(int id) {
+		compraDao.delete(id);
+	}
+
 }

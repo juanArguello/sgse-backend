@@ -14,15 +14,23 @@ import com.sgse.resources.Paginacion;
  * @version 1.0
  */
 public interface UsuarioDao {
-    // Definicion de metodos CRUD de la interfaz UsuarioDao
-    public void create(Usuario usuario);
-    public Usuario findById(int id);
-    public Usuario findByUsername(String username);
-    public Usuario findByEmail(String correo);
-    public List<Usuario> findAll();
-    public Paginacion<Usuario> getUsuariosPaginado(int numeroPagina, int tamanhoPagina);
-    public void update(Usuario usuario);
-    public void delete(int id);
-    public int cantidadFilas();
-    
+	// Definicion de metodos CRUD de la interfaz UsuarioDao
+	public void create(Usuario usuario);
+
+	public Usuario findById(int id);
+
+	public Usuario findByUsername(String username);
+
+	public Usuario findByEmail(String correo);
+
+	public List<Usuario> findAll();
+
+	public Paginacion<Usuario> getUsuariosPaginado(int numeroPagina, int tamanhoPagina);
+
+	public void update(Usuario usuario);
+
+	public void delete(int id);
+
+	public int cantidadFilas();
+
 }

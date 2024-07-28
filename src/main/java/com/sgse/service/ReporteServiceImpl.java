@@ -18,40 +18,40 @@ import com.sgse.entities.Reporte;
  * @version 1.0
  */
 @Service(value = "reporteService")
-public class ReporteServiceImpl implements ReporteService{
+public class ReporteServiceImpl implements ReporteService {
 
-    @Autowired
-    private ReporteDao reporteDao;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(Reporte reporte) {
-        reporteDao.create(reporte);
-    }
+	@Autowired
+	private ReporteDao reporteDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public Reporte findById(int id) {
-        return reporteDao.findById(id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(Reporte reporte) {
+		reporteDao.create(reporte);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Reporte> findAll() {
-        return reporteDao.findAll();
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public Reporte findById(int id) {
+		return reporteDao.findById(id);
+	}
 
-    @Override
-    @Transactional
-    public void update(Reporte reporte) {
-        reporteDao.update(reporte);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<Reporte> findAll() {
+		return reporteDao.findAll();
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        reporteDao.delete(id);
-    }
-    
+	@Override
+	@Transactional
+	public void update(Reporte reporte) {
+		reporteDao.update(reporte);
+	}
+
+	@Override
+	@Transactional
+	public void delete(int id) {
+		reporteDao.delete(id);
+	}
+
 }

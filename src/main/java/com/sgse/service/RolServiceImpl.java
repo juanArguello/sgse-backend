@@ -18,52 +18,52 @@ import com.sgse.entities.Rol;
  * @version 1.0
  */
 @Service(value = "rolService")
-public class RolServiceImpl implements RolService{
+public class RolServiceImpl implements RolService {
 
-    @Autowired
-    private RolDao rolDao;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(Rol rol) {
-        rolDao.create(rol);
-    }
+	@Autowired
+	private RolDao rolDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public Rol findById(int id) {
-        return rolDao.findById(id);
-    }
-    
-    @Override
-    @Transactional(readOnly = true)
-    public Rol findByRolName(String nombreRol){
-        return rolDao.findByRolName(nombreRol);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(Rol rol) {
+		rolDao.create(rol);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Rol> findAll() {
-        return rolDao.findAll();
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public Rol findById(int id) {
+		return rolDao.findById(id);
+	}
 
-    @Override
-    @Transactional
-    public void update(Rol rol) {
-        rolDao.update(rol);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public Rol findByRolName(String nombreRol) {
+		return rolDao.findByRolName(nombreRol);
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        rolDao.delete(id);
-    }
-    
-    @Override
-    @Transactional(readOnly = true)
-    public int cantidadFilas() {
-        return rolDao.cantidadFilas();
-    }
-    
+	@Override
+	@Transactional(readOnly = true)
+	public List<Rol> findAll() {
+		return rolDao.findAll();
+	}
+
+	@Override
+	@Transactional
+	public void update(Rol rol) {
+		rolDao.update(rol);
+	}
+
+	@Override
+	@Transactional
+	public void delete(int id) {
+		rolDao.delete(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public int cantidadFilas() {
+		return rolDao.cantidadFilas();
+	}
+
 }

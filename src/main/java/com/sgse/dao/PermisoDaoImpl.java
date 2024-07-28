@@ -28,8 +28,7 @@ public class PermisoDaoImpl implements PermisoDao {
 	// Implementacion de los metodos CRUD
 	@Override
 	public void create(Permisos permisos) {
-		sessionFactory.getCurrentSession()
-			.persist(permisos);
+		sessionFactory.getCurrentSession().persist(permisos);
 	}
 
 	@Override
@@ -42,14 +41,13 @@ public class PermisoDaoImpl implements PermisoDao {
 		return sessionFactory.getCurrentSession().createQuery("from Permisos p order by p.id asc", Permisos.class)
 				.getResultList();
 	}
-	
+
 	@Override
 	public Paginacion<Permisos> getPermisosPaginado(int numeroPagina, int tamanhoPagina) {
 		int ultimoNumeroPagina;
 		Long totalRegistros;
 		totalRegistros = sessionFactory.getCurrentSession()
-				.createQuery("SELECT COUNT(p.id) from Permisos p", Long.class)
-				.getSingleResult();
+				.createQuery("SELECT COUNT(p.id) from Permisos p", Long.class).getSingleResult();
 		if (totalRegistros % tamanhoPagina == 0) {
 			ultimoNumeroPagina = (int) (totalRegistros / tamanhoPagina);
 		} else {
@@ -76,15 +74,13 @@ public class PermisoDaoImpl implements PermisoDao {
 
 	@Override
 	public void delete(int id) {
-		sessionFactory.getCurrentSession()
-			.remove(sessionFactory.getCurrentSession().get(Permisos.class, id));
+		sessionFactory.getCurrentSession().remove(sessionFactory.getCurrentSession().get(Permisos.class, id));
 	}
 
 	@Override
 	public int cantidadFilas() {
-		return sessionFactory.getCurrentSession()
-				.createQuery("select count(*) from Permisos p",Long.class).getSingleResult()
-				.intValue();
+		return sessionFactory.getCurrentSession().createQuery("select count(*) from Permisos p", Long.class)
+				.getSingleResult().intValue();
 	}
 
 }

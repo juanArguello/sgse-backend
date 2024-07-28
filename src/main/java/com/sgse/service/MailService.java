@@ -11,8 +11,10 @@ package com.sgse.service;
  * @version 1.0
  */
 public interface MailService {
-    
-    public void enviarEmail(String destinatario, String asunto, String cuerpoMensaje);
-    /*public void enviarEmailAdjunto(String destinatario, String asunto, String cuerpoMensaje,
-        CommonsMultipartFile[] archivoAdjunto );*/
+
+	public void enviarEmail(String destinatario, String asunto, String cuerpoMensaje);
+	/*
+	 * public void enviarEmailAdjunto(String destinatario, String asunto, String
+	 * cuerpoMensaje, CommonsMultipartFile[] archivoAdjunto );
+	 */
 }

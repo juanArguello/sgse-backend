@@ -32,121 +32,121 @@ import jakarta.persistence.TemporalType;
 @Table(name = "inventario")
 public class Inventario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Float id;
-    
-    @Column(name = "costo")
-    private Integer costo;
-    
-    @Column(name = "cantidad")
-    private Integer cantidad;
-    
-    @Column(name = "tipo_servicio")
-    private String tipoServicio;
-    
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
-    
-    @Column(name = "comprobante")
-    private String comprobante;
-    
-    @Column(name = "descripcion")
-    private String descripcion;
-    
-    @JoinTable(name = "inventario_reporte", joinColumns = {
-        @JoinColumn(name = "id_inventario", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_reporte", referencedColumnName = "id")})
-    @ManyToMany
-    private List<Reporte> reporteList;
-    
-    @OneToMany(mappedBy = "idInventario")
-    private List<Factura> facturaList;
+	private static final long serialVersionUID = 1L;
+	// @Max(value=?) @Min(value=?)//if you know range of your decimal fields
+	// consider using these annotations to enforce field validation
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private Float id;
 
-    public Inventario() {
-        this.reporteList = new ArrayList<>();
-        this.facturaList = new ArrayList<>();
-    }
+	@Column(name = "costo")
+	private Integer costo;
 
-    public Inventario(Float id) {
-        this.id = id;
-    }
+	@Column(name = "cantidad")
+	private Integer cantidad;
 
-    public Float getId() {
-        return id;
-    }
+	@Column(name = "tipo_servicio")
+	private String tipoServicio;
 
-    public void setId(Float id) {
-        this.id = id;
-    }
+	@Column(name = "fecha")
+	@Temporal(TemporalType.DATE)
+	private Date fecha;
 
-    public Integer getCosto() {
-        return costo;
-    }
+	@Column(name = "comprobante")
+	private String comprobante;
 
-    public void setCosto(Integer costo) {
-        this.costo = costo;
-    }
+	@Column(name = "descripcion")
+	private String descripcion;
 
-    public Integer getCantidad() {
-        return cantidad;
-    }
+	@JoinTable(name = "inventario_reporte", joinColumns = {
+			@JoinColumn(name = "id_inventario", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "id_reporte", referencedColumnName = "id") })
+	@ManyToMany
+	private List<Reporte> reporteList;
 
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
+	@OneToMany(mappedBy = "idInventario")
+	private List<Factura> facturaList;
 
-    public String getTipoServicio() {
-        return tipoServicio;
-    }
+	public Inventario() {
+		this.reporteList = new ArrayList<>();
+		this.facturaList = new ArrayList<>();
+	}
 
-    public void setTipoServicio(String tipoServicio) {
-        this.tipoServicio = tipoServicio;
-    }
+	public Inventario(Float id) {
+		this.id = id;
+	}
 
-    public Date getFecha() {
-        return fecha;
-    }
+	public Float getId() {
+		return id;
+	}
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+	public void setId(Float id) {
+		this.id = id;
+	}
 
-    public String getComprobante() {
-        return comprobante;
-    }
+	public Integer getCosto() {
+		return costo;
+	}
 
-    public void setComprobante(String comprobante) {
-        this.comprobante = comprobante;
-    }
+	public void setCosto(Integer costo) {
+		this.costo = costo;
+	}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	public Integer getCantidad() {
+		return cantidad;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
 
-    public List<Reporte> getReporteList() {
-        return Collections.unmodifiableList(reporteList);
-    }
+	public String getTipoServicio() {
+		return tipoServicio;
+	}
 
-    public void setReporteList(List<Reporte> reporteList) {
-        this.reporteList = reporteList;
-    }
+	public void setTipoServicio(String tipoServicio) {
+		this.tipoServicio = tipoServicio;
+	}
 
-    public List<Factura> getFacturaList() {
-        return Collections.unmodifiableList(facturaList);
-    }
+	public Date getFecha() {
+		return fecha;
+	}
 
-    public void setFacturaList(List<Factura> facturaList) {
-        this.facturaList = facturaList;
-    }
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 
-    
+	public String getComprobante() {
+		return comprobante;
+	}
+
+	public void setComprobante(String comprobante) {
+		this.comprobante = comprobante;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public List<Reporte> getReporteList() {
+		return Collections.unmodifiableList(reporteList);
+	}
+
+	public void setReporteList(List<Reporte> reporteList) {
+		this.reporteList = reporteList;
+	}
+
+	public List<Factura> getFacturaList() {
+		return Collections.unmodifiableList(facturaList);
+	}
+
+	public void setFacturaList(List<Factura> facturaList) {
+		this.facturaList = facturaList;
+	}
+
 }

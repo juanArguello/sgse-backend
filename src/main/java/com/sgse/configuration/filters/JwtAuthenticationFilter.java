@@ -23,12 +23,12 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author Juan Carlos Argüello Ortiz
  * @version 1.0
  */
-public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
-	
+public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
 	private static Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
-	
-	
-	// metodo attemptAuthentication obtiene el username y el password, e intenta autenticar 
+
+	// metodo attemptAuthentication obtiene el username y el password, e intenta
+	// autenticar
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
@@ -38,22 +38,23 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 				authCredentials.getUsername(), authCredentials.getPassword());
 		return getAuthenticationManager().authenticate(authenticationToken);
-	} 
-	
-	// Si la autenticacion fue exitosa, se obtiene el token en la cabecera de HttpResponse
+	}
+
+	// Si la autenticacion fue exitosa, se obtiene el token en la cabecera de
+	// HttpResponse
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		UserDetailsImpl userDetails = (UserDetailsImpl) authResult.getPrincipal();
-		
-		logger.info("Usuario: "+userDetails.getUsername()+" autenticado exitosamente");
+
+		logger.info("Usuario: " + userDetails.getUsername() + " autenticado exitosamente");
 		String token = JwtUtils.generateToken(userDetails);
 		response.addHeader("Authorization", "Bearer " + token);
 		response.getWriter().flush();
-		super.successfulAuthentication(request, response, chain, authResult);	
+		super.successfulAuthentication(request, response, chain, authResult);
 	}
 }

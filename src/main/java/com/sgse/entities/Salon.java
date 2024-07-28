@@ -29,84 +29,84 @@ import jakarta.persistence.TemporalType;
 @Table(name = "salon")
 public class Salon implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer id;
-    
-    @Column(name = "localidad")
-    private String localidad;
-    
-    @Column(name = "descripcion")
-    private String descripcion;
-    
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
-    
-    @Column(name = "horario")
-    private String horario;
-    
-    @OneToMany(mappedBy = "idSalon")
-    private List<Cliente> clienteList;
+	private static final long serialVersionUID = 1L;
+	// @Max(value=?) @Min(value=?)//if you know range of your decimal fields
+	// consider using these annotations to enforce field validation
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private Integer id;
 
-    public Salon() {
-        this.clienteList = new ArrayList<>();
-    }
+	@Column(name = "localidad")
+	private String localidad;
 
-    public Salon(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "descripcion")
+	private String descripcion;
 
-    public Integer getId() {
-        return id;
-    }
+	@Column(name = "fecha")
+	@Temporal(TemporalType.DATE)
+	private Date fecha;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "horario")
+	private String horario;
 
-    public String getLocalidad() {
-        return localidad;
-    }
+	@OneToMany(mappedBy = "idSalon")
+	private List<Cliente> clienteList;
 
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
-    }
+	public Salon() {
+		this.clienteList = new ArrayList<>();
+	}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	public Salon(Integer id) {
+		this.id = id;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Date getFecha() {
-        return fecha;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+	public String getLocalidad() {
+		return localidad;
+	}
 
-    public String getHorario() {
-        return horario;
-    }
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+	}
 
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
+	public String getDescripcion() {
+		return descripcion;
+	}
 
-    public List<Cliente> getClienteList() {
-        return Collections.unmodifiableList(clienteList);
-    }
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-    public void setClienteList(List<Cliente> clienteList) {
-        this.clienteList = clienteList;
-    }
+	public Date getFecha() {
+		return fecha;
+	}
 
- 
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getHorario() {
+		return horario;
+	}
+
+	public void setHorario(String horario) {
+		this.horario = horario;
+	}
+
+	public List<Cliente> getClienteList() {
+		return Collections.unmodifiableList(clienteList);
+	}
+
+	public void setClienteList(List<Cliente> clienteList) {
+		this.clienteList = clienteList;
+	}
+
 }

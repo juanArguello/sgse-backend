@@ -17,37 +17,36 @@ import com.sgse.entities.ContratoVenta;
  * @version 1.0
  */
 @Repository("contratoVentaDao")
-public class ContratoVentaDaoImpl implements ContratoVentaDao{
+public class ContratoVentaDaoImpl implements ContratoVentaDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    public void create(ContratoVenta contratoVenta) {
-        sessionFactory.getCurrentSession()
-            .persist(contratoVenta);
-    }
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    @Override
-    public ContratoVenta findById(int id) {
-        return sessionFactory.getCurrentSession().get(ContratoVenta.class, id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	public void create(ContratoVenta contratoVenta) {
+		sessionFactory.getCurrentSession().persist(contratoVenta);
+	}
 
-    @Override
-    public List<ContratoVenta> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from ContratoVenta cv order by cv.id asc", ContratoVenta.class).getResultList();
-    }
+	@Override
+	public ContratoVenta findById(int id) {
+		return sessionFactory.getCurrentSession().get(ContratoVenta.class, id);
+	}
 
-    @Override
-    public void update(ContratoVenta contratoVenta) {
-        sessionFactory.getCurrentSession().merge(contratoVenta);
-    }
+	@Override
+	public List<ContratoVenta> findAll() {
+		return sessionFactory.getCurrentSession()
+				.createQuery("from ContratoVenta cv order by cv.id asc", ContratoVenta.class).getResultList();
+	}
 
-    @Override
-    public void delete(int id) {
-        sessionFactory.getCurrentSession()
-            .remove(sessionFactory.getCurrentSession().get(ContratoVenta.class, id));
-    }
-    
+	@Override
+	public void update(ContratoVenta contratoVenta) {
+		sessionFactory.getCurrentSession().merge(contratoVenta);
+	}
+
+	@Override
+	public void delete(int id) {
+		sessionFactory.getCurrentSession().remove(sessionFactory.getCurrentSession().get(ContratoVenta.class, id));
+	}
+
 }

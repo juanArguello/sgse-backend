@@ -19,54 +19,52 @@ import com.sgse.resources.Paginacion;
  * @version 1.0
  */
 @Service(value = "permisoService")
-public class PermisoServiceImpl implements PermisoService{
-	
-    @Autowired
-    private PermisoDao permisoDao;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(Permisos permisos) {
-        permisoDao.create(permisos);
-    }
+public class PermisoServiceImpl implements PermisoService {
 
-    @Override
-    @Transactional(readOnly = true)
-    public Permisos findById(int id) {
-        return permisoDao.findById(id);
-    }
+	@Autowired
+	private PermisoDao permisoDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Permisos> findAll() {
-        return permisoDao.findAll();
-    }
-    
-    @Override
-    @Transactional(readOnly = true)
-    public Paginacion<Permisos> getPermisosPaginado(int numeroPagina, int tamanhoPagina) {
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(Permisos permisos) {
+		permisoDao.create(permisos);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Permisos findById(int id) {
+		return permisoDao.findById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Permisos> findAll() {
+		return permisoDao.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Paginacion<Permisos> getPermisosPaginado(int numeroPagina, int tamanhoPagina) {
 		return permisoDao.getPermisosPaginado(numeroPagina, tamanhoPagina);
 	}
 
-    @Override
-    @Transactional
-    public void update(Permisos permisos) {
-        permisoDao.update(permisos);
-    }
+	@Override
+	@Transactional
+	public void update(Permisos permisos) {
+		permisoDao.update(permisos);
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        permisoDao.delete(id);
-    }
-    
-    @Override
-    @Transactional(readOnly = true)
-    public int cantidadFilas() {
-        return permisoDao.cantidadFilas();
-    }
-    
+	@Override
+	@Transactional
+	public void delete(int id) {
+		permisoDao.delete(id);
+	}
 
-    
+	@Override
+	@Transactional(readOnly = true)
+	public int cantidadFilas() {
+		return permisoDao.cantidadFilas();
+	}
+
 }

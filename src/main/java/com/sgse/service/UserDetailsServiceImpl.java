@@ -21,18 +21,18 @@ import com.sgse.entities.Usuario;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	private Logger logger = LoggerFactory.getLogger(UserDetailsImpl.class);
-	
+
 	@Autowired
 	private UsuarioDao usuarioDao;
 
 	// Carga los detalles de usuario, atraves del parametro username
 	@Override
 	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = usuarioDao.findByUsername(username);
-		if(usuario == null) {
-			logger.error("El usuario "+username+" no existe en el sistema");
-			throw new UsernameNotFoundException("El usuario "+username+" no existe en el sistema");
+		if (usuario == null) {
+			logger.error("El usuario " + username + " no existe en el sistema");
+			throw new UsernameNotFoundException("El usuario " + username + " no existe en el sistema");
 		}
 		return new UserDetailsImpl(usuario);
 	}

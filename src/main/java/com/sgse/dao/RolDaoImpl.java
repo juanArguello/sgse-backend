@@ -17,52 +17,47 @@ import com.sgse.entities.Rol;
  * @version 1.0
  */
 @Repository(value = "rolDao")
-public class RolDaoImpl implements RolDao{
-    
-    @Autowired
-    private SessionFactory sessionFactory;
+public class RolDaoImpl implements RolDao {
 
-    //Implementacion de los metodos CRUD
-    @Override
-    public void create(Rol rol) {
-        sessionFactory.getCurrentSession()
-            .persist(rol);
-    }
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    @Override
-    public Rol findById(int id) {
-        return sessionFactory.getCurrentSession().get(Rol.class, id);
-    }
-    
-    @Override
-    public Rol findByRolName(String nombreRol) {
-        return (Rol) sessionFactory.getCurrentSession()
-        		.createQuery("from Rol r where r.nombre = :nombreRol", Rol.class)
-        		.setParameter("nombreRol", nombreRol).getSingleResult();
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	public void create(Rol rol) {
+		sessionFactory.getCurrentSession().persist(rol);
+	}
 
-    @Override
-    public List<Rol> findAll() {
-        return sessionFactory.getCurrentSession()
-        		.createQuery("from Rol r order by r.id asc", Rol.class).getResultList();
-    }
+	@Override
+	public Rol findById(int id) {
+		return sessionFactory.getCurrentSession().get(Rol.class, id);
+	}
 
-    @Override
-    public void update(Rol rol) {
-        sessionFactory.getCurrentSession()
-            .merge(rol);
-    }
+	@Override
+	public Rol findByRolName(String nombreRol) {
+		return (Rol) sessionFactory.getCurrentSession().createQuery("from Rol r where r.nombre = :nombreRol", Rol.class)
+				.setParameter("nombreRol", nombreRol).getSingleResult();
+	}
 
-    @Override
-    public void delete(int id) {
-        sessionFactory.getCurrentSession()
-            .remove(sessionFactory.getCurrentSession().get(Rol.class, id));
-    }
-    
-    @Override
+	@Override
+	public List<Rol> findAll() {
+		return sessionFactory.getCurrentSession().createQuery("from Rol r order by r.id asc", Rol.class)
+				.getResultList();
+	}
+
+	@Override
+	public void update(Rol rol) {
+		sessionFactory.getCurrentSession().merge(rol);
+	}
+
+	@Override
+	public void delete(int id) {
+		sessionFactory.getCurrentSession().remove(sessionFactory.getCurrentSession().get(Rol.class, id));
+	}
+
+	@Override
 	public int cantidadFilas() {
-		return sessionFactory.getCurrentSession()
-				.createQuery("select count(*) from Rol r",Long.class).getSingleResult()
-				.intValue();
+		return sessionFactory.getCurrentSession().createQuery("select count(*) from Rol r", Long.class)
+				.getSingleResult().intValue();
 	}
 }

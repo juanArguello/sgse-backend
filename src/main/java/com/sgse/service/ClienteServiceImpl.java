@@ -19,52 +19,52 @@ import com.sgse.resources.Paginacion;
  * @version 1.0
  */
 @Service(value = "clienteService")
-public class ClienteServiceImpl implements ClienteService{
+public class ClienteServiceImpl implements ClienteService {
 
-    @Autowired
-    private ClienteDao clienteDao;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(Cliente cliente) {
-        clienteDao.create(cliente);
-    }
+	@Autowired
+	private ClienteDao clienteDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public Cliente findById(int id) {
-        return clienteDao.findById(id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(Cliente cliente) {
+		clienteDao.create(cliente);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Cliente> findAll() {
-        return clienteDao.findAll();
-    }
-    
-    @Override
-    @Transactional(readOnly = true)
-    public Paginacion<Cliente> getClientesPaginado(int numeroPagina, int tamanhoPagina) {
+	@Override
+	@Transactional(readOnly = true)
+	public Cliente findById(int id) {
+		return clienteDao.findById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Cliente> findAll() {
+		return clienteDao.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Paginacion<Cliente> getClientesPaginado(int numeroPagina, int tamanhoPagina) {
 		return clienteDao.getClientesPaginado(numeroPagina, tamanhoPagina);
 	}
 
-    @Override
-    @Transactional
-    public void update(Cliente cliente) {
-        clienteDao.update(cliente);
-    }
+	@Override
+	@Transactional
+	public void update(Cliente cliente) {
+		clienteDao.update(cliente);
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        clienteDao.delete(id);
-    }
+	@Override
+	@Transactional
+	public void delete(int id) {
+		clienteDao.delete(id);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public int cantidadClientes() {
-        return clienteDao.cantidadClientes();
-    }
-    
+	@Override
+	@Transactional(readOnly = true)
+	public int cantidadClientes() {
+		return clienteDao.cantidadClientes();
+	}
+
 }

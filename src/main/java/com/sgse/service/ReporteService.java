@@ -13,10 +13,14 @@ import com.sgse.entities.Reporte;
  * @version 1.0
  */
 public interface ReporteService {
-    // Definicion de los metodos CRUD de la interfaz ReporteService
-    public void create(Reporte reporte);
-    public Reporte findById(int id);  
-    public List<Reporte> findAll();
-    public void update(Reporte reporte);
-    public void delete(int id);
+	// Definicion de los metodos CRUD de la interfaz ReporteService
+	public void create(Reporte reporte);
+
+	public Reporte findById(int id);
+
+	public List<Reporte> findAll();
+
+	public void update(Reporte reporte);
+
+	public void delete(int id);
 }

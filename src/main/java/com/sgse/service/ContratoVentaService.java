@@ -13,10 +13,14 @@ import com.sgse.entities.ContratoVenta;
  * @version 1.0
  */
 public interface ContratoVentaService {
-    // Definicion de los metodos CRUD de la interfaz ContratoVentaService
-    public void create(ContratoVenta contratoVenta);
-    public ContratoVenta findById(int id);  
-    public List<ContratoVenta> findAll();
-    public void update(ContratoVenta contratoVenta);
-    public void delete(int id);
+	// Definicion de los metodos CRUD de la interfaz ContratoVentaService
+	public void create(ContratoVenta contratoVenta);
+
+	public ContratoVenta findById(int id);
+
+	public List<ContratoVenta> findAll();
+
+	public void update(ContratoVenta contratoVenta);
+
+	public void delete(int id);
 }

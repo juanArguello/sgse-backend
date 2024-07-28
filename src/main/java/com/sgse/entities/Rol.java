@@ -25,7 +25,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 
-
 /**
  *
  * @author Juan Carlos Argüello Ortiz
@@ -35,89 +34,87 @@ import jakarta.validation.constraints.NotEmpty;
 @Table(name = "rol")
 public class Rol implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
-    private Integer id;
-    
-    @NotEmpty(message = "no puede estar vacio")
-    @Column(name = "nombre",unique = true)
-    private String nombre;
-    
-    @NotEmpty(message = "no puede estar vacio")
-    @Column(name = "descripcion")
-    private String descripcion;
-    
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id")
+	private Integer id;
+
+	@NotEmpty(message = "no puede estar vacio")
+	@Column(name = "nombre", unique = true)
+	private String nombre;
+
+	@NotEmpty(message = "no puede estar vacio")
+	@Column(name = "descripcion")
+	private String descripcion;
+
 //    @LazyCollection(LazyCollectionOption.FALSE)
-    @NotEmpty(message = "no puede estar vacio")
-    @JsonIgnoreProperties({"rolList","hibernateLazyInitializer","handler"})
-    @JoinTable(name = "rol_permisos", joinColumns = {
-        @JoinColumn(name = "id_rol", referencedColumnName = "id")}, 
-            inverseJoinColumns = {
-        @JoinColumn(name = "id_permisos", referencedColumnName = "id")})
-    //@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-    private List<Permisos> permisosList;
-    
-    
-    @JsonIgnoreProperties({"idRol","hibernateLazyInitializer","handler"})
-    @OneToMany(mappedBy = "idRol",fetch = FetchType.LAZY)
-    private List<Usuario> usuarioList;
-    
-    public Rol() {
-        this.permisosList = new ArrayList<>();
-        this.usuarioList = new ArrayList<>();
-    }
+	@NotEmpty(message = "no puede estar vacio")
+	@JsonIgnoreProperties({ "rolList", "hibernateLazyInitializer", "handler" })
+	@JoinTable(name = "rol_permisos", joinColumns = {
+			@JoinColumn(name = "id_rol", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "id_permisos", referencedColumnName = "id") })
+	// @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
+	private List<Permisos> permisosList;
 
-    public Rol(Integer id) {
-        this.id = id;
-    }
+	@JsonIgnoreProperties({ "idRol", "hibernateLazyInitializer", "handler" })
+	@OneToMany(mappedBy = "idRol", fetch = FetchType.LAZY)
+	private List<Usuario> usuarioList;
 
-    public Rol(Integer id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
+	public Rol() {
+		this.permisosList = new ArrayList<>();
+		this.usuarioList = new ArrayList<>();
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Rol(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Rol(Integer id, String nombre) {
+		this.id = id;
+		this.nombre = nombre;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public List<Permisos> getPermisosList() {
-        return Collections.unmodifiableList(permisosList);
-    }
+	public String getDescripcion() {
+		return descripcion;
+	}
 
-    public void setPermisosList(List<Permisos> permisosList) {
-        this.permisosList = permisosList;
-    }
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-    public List<Usuario> getUsuarioList() {
-        return Collections.unmodifiableList(usuarioList);
-    }
+	public List<Permisos> getPermisosList() {
+		return Collections.unmodifiableList(permisosList);
+	}
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
-    }
-    
+	public void setPermisosList(List<Permisos> permisosList) {
+		this.permisosList = permisosList;
+	}
+
+	public List<Usuario> getUsuarioList() {
+		return Collections.unmodifiableList(usuarioList);
+	}
+
+	public void setUsuarioList(List<Usuario> usuarioList) {
+		this.usuarioList = usuarioList;
+	}
+
 }

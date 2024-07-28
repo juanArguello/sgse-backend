@@ -24,7 +24,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 
-
 /**
  *
  * @author Juan Carlos Argüello Ortiz
@@ -34,86 +33,84 @@ import jakarta.validation.constraints.NotEmpty;
 @Table(name = "plan")
 public class Plan implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer id;
-    
-    @NotEmpty(message = "no puede estar vacio")
-    @Column(name = "nombre",unique = true)
-    private String nombre;
-    
-    @NotEmpty(message = "no puede estar vacio")
-    @Column(name = "descripcion")
-    private String descripcion;
-    
-    @NotEmpty(message = "no puede estar vacio")
-    @JsonIgnoreProperties({"planList","hibernateLazyInitializer","handler"})
-    @JoinTable(name = "plan_servicios", joinColumns = {
-        @JoinColumn(name = "id_plan", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_servicio", referencedColumnName = "id")})
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Servicios> serviciosList;
-    
-    
-    @JoinColumn(name = "id_seguro", referencedColumnName = "id")
-    @ManyToOne
-    private Seguro idSeguro;
+	private static final long serialVersionUID = 1L;
 
-    public Plan() {
-        this.serviciosList = new ArrayList<>();
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private Integer id;
 
-    public Plan(Integer id) {
-        this.id = id;
-    }
+	@NotEmpty(message = "no puede estar vacio")
+	@Column(name = "nombre", unique = true)
+	private String nombre;
 
-    public Plan(Integer id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
+	@NotEmpty(message = "no puede estar vacio")
+	@Column(name = "descripcion")
+	private String descripcion;
 
-    public Integer getId() {
-        return id;
-    }
+	@NotEmpty(message = "no puede estar vacio")
+	@JsonIgnoreProperties({ "planList", "hibernateLazyInitializer", "handler" })
+	@JoinTable(name = "plan_servicios", joinColumns = {
+			@JoinColumn(name = "id_plan", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "id_servicio", referencedColumnName = "id") })
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<Servicios> serviciosList;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@JoinColumn(name = "id_seguro", referencedColumnName = "id")
+	@ManyToOne
+	private Seguro idSeguro;
 
-    public String getNombre() {
-        return nombre;
-    }
+	public Plan() {
+		this.serviciosList = new ArrayList<>();
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public Plan(Integer id) {
+		this.id = id;
+	}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	public Plan(Integer id, String nombre) {
+		this.id = id;
+		this.nombre = nombre;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public List<Servicios> getServiciosList() {
-        return Collections.unmodifiableList(serviciosList);
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setServiciosList(List<Servicios> serviciosList) {
-        this.serviciosList = serviciosList;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public Seguro getIdSeguro() {
-        return idSeguro;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setIdSeguro(Seguro idSeguro) {
-        this.idSeguro = idSeguro;
-    }
+	public String getDescripcion() {
+		return descripcion;
+	}
 
-    
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public List<Servicios> getServiciosList() {
+		return Collections.unmodifiableList(serviciosList);
+	}
+
+	public void setServiciosList(List<Servicios> serviciosList) {
+		this.serviciosList = serviciosList;
+	}
+
+	public Seguro getIdSeguro() {
+		return idSeguro;
+	}
+
+	public void setIdSeguro(Seguro idSeguro) {
+		this.idSeguro = idSeguro;
+	}
+
 }

@@ -17,37 +17,36 @@ import com.sgse.entities.Empresa;
  * @version 1.0
  */
 @Repository("empresaDao")
-public class EmpresaDaoImpl implements EmpresaDao{
-    
-    @Autowired
-    private SessionFactory sessionFactory;
+public class EmpresaDaoImpl implements EmpresaDao {
 
-    // Implementacion de los metodos CRUD
-    @Override
-    public void create(Empresa empresa) {
-        sessionFactory.getCurrentSession()
-            .persist(empresa);
-    }
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    @Override
-    public Empresa findById(int id) {
-        return sessionFactory.getCurrentSession().get(Empresa.class, id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	public void create(Empresa empresa) {
+		sessionFactory.getCurrentSession().persist(empresa);
+	}
 
-    @Override
-    public List<Empresa> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Empresa e order by e.id asc", Empresa.class).getResultList();
-    }
+	@Override
+	public Empresa findById(int id) {
+		return sessionFactory.getCurrentSession().get(Empresa.class, id);
+	}
 
-    @Override
-    public void update(Empresa empresa) {
-        sessionFactory.getCurrentSession().merge(empresa);
-    }
+	@Override
+	public List<Empresa> findAll() {
+		return sessionFactory.getCurrentSession().createQuery("from Empresa e order by e.id asc", Empresa.class)
+				.getResultList();
+	}
 
-    @Override
-    public void delete(int id) {
-        sessionFactory.getCurrentSession()
-            .remove(sessionFactory.getCurrentSession().get(Empresa.class, id));
-    }
-    
+	@Override
+	public void update(Empresa empresa) {
+		sessionFactory.getCurrentSession().merge(empresa);
+	}
+
+	@Override
+	public void delete(int id) {
+		sessionFactory.getCurrentSession().remove(sessionFactory.getCurrentSession().get(Empresa.class, id));
+	}
+
 }

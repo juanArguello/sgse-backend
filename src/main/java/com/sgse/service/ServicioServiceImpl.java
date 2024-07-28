@@ -19,46 +19,46 @@ import com.sgse.resources.Paginacion;
  * @version 1.0
  */
 @Service(value = "servicioService")
-public class ServicioServiceImpl implements ServicioService{
+public class ServicioServiceImpl implements ServicioService {
 
-    @Autowired
-    private ServicioDao servicioDao;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(Servicios servicios) {
-        servicioDao.create(servicios);
-    }
+	@Autowired
+	private ServicioDao servicioDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public Servicios findById(int id) {
-        return servicioDao.findById(id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(Servicios servicios) {
+		servicioDao.create(servicios);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Servicios> findAll() {
-        return servicioDao.findAll();
-    }
-    
-    @Override
-    @Transactional(readOnly = true)
-    public Paginacion<Servicios> getServiciosPaginado(int numeroPagina, int tamanhoPagina) {
+	@Override
+	@Transactional(readOnly = true)
+	public Servicios findById(int id) {
+		return servicioDao.findById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Servicios> findAll() {
+		return servicioDao.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Paginacion<Servicios> getServiciosPaginado(int numeroPagina, int tamanhoPagina) {
 		return servicioDao.getServiciosPaginado(numeroPagina, tamanhoPagina);
 	}
 
-    @Override
-    @Transactional
-    public void update(Servicios servicios) {
-        servicioDao.update(servicios);
-    }
+	@Override
+	@Transactional
+	public void update(Servicios servicios) {
+		servicioDao.update(servicios);
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        servicioDao.delete(id);
-    }
-    
+	@Override
+	@Transactional
+	public void delete(int id) {
+		servicioDao.delete(id);
+	}
+
 }

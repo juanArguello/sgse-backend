@@ -18,40 +18,40 @@ import com.sgse.entities.Inventario;
  * @version 1.0
  */
 @Service(value = "inventarioService")
-public class InventarioServiceImpl implements InventarioService{
+public class InventarioServiceImpl implements InventarioService {
 
-    @Autowired
-    private InventarioDao inventarioDao;
-            
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(Inventario inventario) {
-        inventarioDao.create(inventario);
-    }
+	@Autowired
+	private InventarioDao inventarioDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public Inventario findById(int id) {
-        return inventarioDao.findById(id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(Inventario inventario) {
+		inventarioDao.create(inventario);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Inventario> findAll() {
-        return inventarioDao.findAll();
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public Inventario findById(int id) {
+		return inventarioDao.findById(id);
+	}
 
-    @Override
-    @Transactional
-    public void update(Inventario inventario) {
-        inventarioDao.update(inventario);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<Inventario> findAll() {
+		return inventarioDao.findAll();
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        inventarioDao.delete(id);
-    }
-    
+	@Override
+	@Transactional
+	public void update(Inventario inventario) {
+		inventarioDao.update(inventario);
+	}
+
+	@Override
+	@Transactional
+	public void delete(int id) {
+		inventarioDao.delete(id);
+	}
+
 }

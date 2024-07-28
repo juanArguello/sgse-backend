@@ -18,40 +18,40 @@ import com.sgse.entities.ContratoVenta;
  * @version 1.0
  */
 @Service(value = "contratoVentaService")
-public class ContratoVentaServiceImpl implements ContratoVentaService{
+public class ContratoVentaServiceImpl implements ContratoVentaService {
 
-    @Autowired
-    private ContratoVentaDao contratoVentaDao;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(ContratoVenta contratoVenta) {
-        contratoVentaDao.create(contratoVenta);
-    }
+	@Autowired
+	private ContratoVentaDao contratoVentaDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public ContratoVenta findById(int id) {
-        return contratoVentaDao.findById(id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(ContratoVenta contratoVenta) {
+		contratoVentaDao.create(contratoVenta);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<ContratoVenta> findAll() {
-        return contratoVentaDao.findAll();
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public ContratoVenta findById(int id) {
+		return contratoVentaDao.findById(id);
+	}
 
-    @Override
-    @Transactional
-    public void update(ContratoVenta contratoVenta) {
-        contratoVentaDao.update(contratoVenta);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<ContratoVenta> findAll() {
+		return contratoVentaDao.findAll();
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        contratoVentaDao.delete(id);
-    }
-    
+	@Override
+	@Transactional
+	public void update(ContratoVenta contratoVenta) {
+		contratoVentaDao.update(contratoVenta);
+	}
+
+	@Override
+	@Transactional
+	public void delete(int id) {
+		contratoVentaDao.delete(id);
+	}
+
 }

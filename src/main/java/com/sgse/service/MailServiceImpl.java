@@ -23,52 +23,52 @@ import jakarta.mail.internet.MimeMessage;
  */
 @Service(value = "mailService")
 public class MailServiceImpl implements MailService {
-	
+
 	private JavaMailSenderImpl javaMailSenderImpl;
 
-    private String texto;
+	private String texto;
 
-    private final String CORREO_FUTURO = "futuro.seguros.py@gmail.com";
+	private final String CORREO_FUTURO = "futuro.seguros.py@gmail.com";
 
-    // Log permite realizar registrar las actividades de los eventos
-    private final Log log = LogFactory.getLog(MailService.class);
+	// Log permite realizar registrar las actividades de los eventos
+	private final Log log = LogFactory.getLog(MailService.class);
 
-    private void inicializar() {
-        Properties javaMailProperties = new Properties();
-        javaMailProperties.setProperty("mail.transport.protocol", "smtp");
-        javaMailProperties.setProperty("mail.smtp.auth", "true");
-        javaMailProperties.setProperty("mail.smtp.starttls.enable", "true");
-        javaMailSenderImpl = new JavaMailSenderImpl();
-        javaMailSenderImpl.setHost("smtp.gmail.com");
-        javaMailSenderImpl.setPort(587);
-        javaMailSenderImpl.setUsername("futuro.seguros.py@gmail.com");
-        javaMailSenderImpl.setPassword("futuro.seguros.py.2022");
-        javaMailSenderImpl.setJavaMailProperties(javaMailProperties);
-    }
+	private void inicializar() {
+		Properties javaMailProperties = new Properties();
+		javaMailProperties.setProperty("mail.transport.protocol", "smtp");
+		javaMailProperties.setProperty("mail.smtp.auth", "true");
+		javaMailProperties.setProperty("mail.smtp.starttls.enable", "true");
+		javaMailSenderImpl = new JavaMailSenderImpl();
+		javaMailSenderImpl.setHost("smtp.gmail.com");
+		javaMailSenderImpl.setPort(587);
+		javaMailSenderImpl.setUsername("futuro.seguros.py@gmail.com");
+		javaMailSenderImpl.setPassword("futuro.seguros.py.2022");
+		javaMailSenderImpl.setJavaMailProperties(javaMailProperties);
+	}
 
-    @Override
-    public void enviarEmail(String destinatario, String asunto, String cuerpoMensaje) {
-        inicializar();
-        texto = cuerpoMensaje;
-        try {
-            MimeMessage message = javaMailSenderImpl.createMimeMessage();
-            // usa true para indicar que necesita un mensaje multiparte
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(CORREO_FUTURO);
-            helper.setTo(destinatario);
-            helper.setSubject(asunto);
-            texto += "<hr><p><strong>Futuro Avda. San Martin N° 615 esq. Sucre</strong></p>";
-            texto += "<img src='cid:Futuro' height='100' width='120' />";
-            // usa true para indicar el texto incluye como HTML
-            helper.setText(texto, true);
-            ClassPathResource classPathResource = new ClassPathResource("/images/logo.jpg");
-            helper.addInline("Futuro", classPathResource);
-            javaMailSenderImpl.send(message);
-            log.info("\n\tEnvio exitoso del correo electronico");
-        } catch (MessagingException e) {
-            log.error("\n\tNo se pudo enviar el correo");
-        }
-    }
+	@Override
+	public void enviarEmail(String destinatario, String asunto, String cuerpoMensaje) {
+		inicializar();
+		texto = cuerpoMensaje;
+		try {
+			MimeMessage message = javaMailSenderImpl.createMimeMessage();
+			// usa true para indicar que necesita un mensaje multiparte
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			helper.setFrom(CORREO_FUTURO);
+			helper.setTo(destinatario);
+			helper.setSubject(asunto);
+			texto += "<hr><p><strong>Futuro Avda. San Martin N° 615 esq. Sucre</strong></p>";
+			texto += "<img src='cid:Futuro' height='100' width='120' />";
+			// usa true para indicar el texto incluye como HTML
+			helper.setText(texto, true);
+			ClassPathResource classPathResource = new ClassPathResource("/images/logo.jpg");
+			helper.addInline("Futuro", classPathResource);
+			javaMailSenderImpl.send(message);
+			log.info("\n\tEnvio exitoso del correo electronico");
+		} catch (MessagingException e) {
+			log.error("\n\tNo se pudo enviar el correo");
+		}
+	}
 
 	/*
 	 * @Override public void enviarEmailAdjunto(String destinatario, String asunto,

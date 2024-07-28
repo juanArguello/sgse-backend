@@ -1,0 +1,9 @@
+#.dockerignore
+*.md
+.git
+.idea
+.settings
+.classpath
+.project
+.gitignore
+/target

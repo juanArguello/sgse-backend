@@ -31,116 +31,115 @@ import jakarta.validation.constraints.NotEmpty;
 @Table(name = "empresa")
 public class Empresa implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer id;
-    
-    @Column(name = "ruc")
-    private String ruc;
-    
-    @Column(name = "nombre_empresa")
-    private String nombreEmpresa;
-    
-    @Column(name = "nombre_marca")
-    private String nombreMarca;
-    
-    @NotEmpty(message = "no puede estar vacio")
-    @Email(message = "No es un correo electronico válido")
-    @Column(name = "email",unique = true)
-    private String email;
-    
-    @Column(name = "rubro")
-    private String rubro;
-    
-    @JsonIgnoreProperties({"idEmpresa","hibernateLazyInitializer","handler"})
-    @OneToMany(mappedBy = "idEmpresa")
-    private List<Sucursal> sucursalList;
-    
-    @JsonIgnoreProperties({"idEmpresa","hibernateLazyInitializer","handler"})
-    @OneToMany(mappedBy = "idEmpresa", fetch=FetchType.LAZY)
-    private List<Usuario> usuarioList;
+	private static final long serialVersionUID = 1L;
 
-    public Empresa() {
-        this.sucursalList = new ArrayList<>();
-        this.usuarioList = new ArrayList<>();
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private Integer id;
 
-    public Empresa(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "ruc")
+	private String ruc;
 
-    public Empresa(Integer id, String nombreEmpresa, String nombreMarca) {
-        this.id = id;
-        this.nombreEmpresa = nombreEmpresa;
-        this.nombreMarca = nombreMarca;
-    }
+	@Column(name = "nombre_empresa")
+	private String nombreEmpresa;
 
-    public Integer getId() {
-        return id;
-    }
+	@Column(name = "nombre_marca")
+	private String nombreMarca;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@NotEmpty(message = "no puede estar vacio")
+	@Email(message = "No es un correo electronico válido")
+	@Column(name = "email", unique = true)
+	private String email;
 
-    public String getRuc() {
-        return ruc;
-    }
+	@Column(name = "rubro")
+	private String rubro;
 
-    public void setRuc(String ruc) {
-        this.ruc = ruc;
-    }
+	@JsonIgnoreProperties({ "idEmpresa", "hibernateLazyInitializer", "handler" })
+	@OneToMany(mappedBy = "idEmpresa")
+	private List<Sucursal> sucursalList;
 
-    public String getNombreEmpresa() {
-        return nombreEmpresa;
-    }
+	@JsonIgnoreProperties({ "idEmpresa", "hibernateLazyInitializer", "handler" })
+	@OneToMany(mappedBy = "idEmpresa", fetch = FetchType.LAZY)
+	private List<Usuario> usuarioList;
 
-    public void setNombreEmpresa(String nombreEmpresa) {
-        this.nombreEmpresa = nombreEmpresa;
-    }
+	public Empresa() {
+		this.sucursalList = new ArrayList<>();
+		this.usuarioList = new ArrayList<>();
+	}
 
-    public String getNombreMarca() {
-        return nombreMarca;
-    }
+	public Empresa(Integer id) {
+		this.id = id;
+	}
 
-    public void setNombreMarca(String nombreMarca) {
-        this.nombreMarca = nombreMarca;
-    }
+	public Empresa(Integer id, String nombreEmpresa, String nombreMarca) {
+		this.id = id;
+		this.nombreEmpresa = nombreEmpresa;
+		this.nombreMarca = nombreMarca;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getRubro() {
-        return rubro;
-    }
+	public String getRuc() {
+		return ruc;
+	}
 
-    public void setRubro(String rubro) {
-        this.rubro = rubro;
-    }
+	public void setRuc(String ruc) {
+		this.ruc = ruc;
+	}
 
-    public List<Sucursal> getSucursalList() {
-        return Collections.unmodifiableList(sucursalList);
-    }
+	public String getNombreEmpresa() {
+		return nombreEmpresa;
+	}
 
-    public void setSucursalList(List<Sucursal> sucursalList) {
-        this.sucursalList = sucursalList;
-    }
-        
-    public List<Usuario> getUsuarioList() {
-        return Collections.unmodifiableList(usuarioList);
-    }
+	public void setNombreEmpresa(String nombreEmpresa) {
+		this.nombreEmpresa = nombreEmpresa;
+	}
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
-    }
+	public String getNombreMarca() {
+		return nombreMarca;
+	}
 
-    
+	public void setNombreMarca(String nombreMarca) {
+		this.nombreMarca = nombreMarca;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getRubro() {
+		return rubro;
+	}
+
+	public void setRubro(String rubro) {
+		this.rubro = rubro;
+	}
+
+	public List<Sucursal> getSucursalList() {
+		return Collections.unmodifiableList(sucursalList);
+	}
+
+	public void setSucursalList(List<Sucursal> sucursalList) {
+		this.sucursalList = sucursalList;
+	}
+
+	public List<Usuario> getUsuarioList() {
+		return Collections.unmodifiableList(usuarioList);
+	}
+
+	public void setUsuarioList(List<Usuario> usuarioList) {
+		this.usuarioList = usuarioList;
+	}
+
 }

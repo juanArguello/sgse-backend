@@ -17,37 +17,36 @@ import com.sgse.entities.Reporte;
  * @version 1.0
  */
 @Repository("reporteDao")
-public class ReporteDaoImpl implements ReporteDao{
+public class ReporteDaoImpl implements ReporteDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    public void create(Reporte reporte) {
-        sessionFactory.getCurrentSession()
-            .persist(reporte);
-    }
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    @Override
-    public Reporte findById(int id) {
-        return sessionFactory.getCurrentSession().get(Reporte.class, id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	public void create(Reporte reporte) {
+		sessionFactory.getCurrentSession().persist(reporte);
+	}
 
-    @Override
-    public List<Reporte> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Reporte r order by r.id asc", Reporte.class).getResultList();
-    }
+	@Override
+	public Reporte findById(int id) {
+		return sessionFactory.getCurrentSession().get(Reporte.class, id);
+	}
 
-    @Override
-    public void update(Reporte reporte) {
-        sessionFactory.getCurrentSession().merge(reporte);
-    }
+	@Override
+	public List<Reporte> findAll() {
+		return sessionFactory.getCurrentSession().createQuery("from Reporte r order by r.id asc", Reporte.class)
+				.getResultList();
+	}
 
-    @Override
-    public void delete(int id) {
-        sessionFactory.getCurrentSession()
-            .remove(sessionFactory.getCurrentSession().get(Reporte.class, id));
-    }
-    
+	@Override
+	public void update(Reporte reporte) {
+		sessionFactory.getCurrentSession().merge(reporte);
+	}
+
+	@Override
+	public void delete(int id) {
+		sessionFactory.getCurrentSession().remove(sessionFactory.getCurrentSession().get(Reporte.class, id));
+	}
+
 }

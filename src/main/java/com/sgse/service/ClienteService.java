@@ -14,12 +14,18 @@ import com.sgse.resources.Paginacion;
  * @version 1.0
  */
 public interface ClienteService {
-    // Definicion de los metodos CRUD de la interfaz ClienteService
-    public void create(Cliente cliente);
-    public Cliente findById(int id);
-    public List<Cliente> findAll();
-    public Paginacion<Cliente> getClientesPaginado(int numeroPagina, int tamanhoPagina);
-    public void update(Cliente cliente);
-    public void delete(int id);
-    public int cantidadClientes();
+	// Definicion de los metodos CRUD de la interfaz ClienteService
+	public void create(Cliente cliente);
+
+	public Cliente findById(int id);
+
+	public List<Cliente> findAll();
+
+	public Paginacion<Cliente> getClientesPaginado(int numeroPagina, int tamanhoPagina);
+
+	public void update(Cliente cliente);
+
+	public void delete(int id);
+
+	public int cantidadClientes();
 }

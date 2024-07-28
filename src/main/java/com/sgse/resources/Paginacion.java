@@ -49,6 +49,4 @@ public class Paginacion<E> {
 		this.registros = registros;
 	}
 
-	
-
 }

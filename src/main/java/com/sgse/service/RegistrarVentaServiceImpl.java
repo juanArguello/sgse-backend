@@ -18,40 +18,40 @@ import com.sgse.entities.RegistrarVenta;
  * @version 1.0
  */
 @Service(value = "registrarVentaService")
-public class RegistrarVentaServiceImpl implements RegistrarVentaService{
+public class RegistrarVentaServiceImpl implements RegistrarVentaService {
 
-    @Autowired
-    private RegistrarVentaDao registrarVentaDao;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(RegistrarVenta registrarVenta) {
-        registrarVentaDao.create(registrarVenta);
-    }
+	@Autowired
+	private RegistrarVentaDao registrarVentaDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public RegistrarVenta findById(int id) {
-        return registrarVentaDao.findById(id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(RegistrarVenta registrarVenta) {
+		registrarVentaDao.create(registrarVenta);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<RegistrarVenta> findAll() {
-        return registrarVentaDao.findAll();
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public RegistrarVenta findById(int id) {
+		return registrarVentaDao.findById(id);
+	}
 
-    @Override
-    @Transactional
-    public void update(RegistrarVenta registrarVenta) {
-        registrarVentaDao.update(registrarVenta);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<RegistrarVenta> findAll() {
+		return registrarVentaDao.findAll();
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        registrarVentaDao.delete(id);
-    }
-    
+	@Override
+	@Transactional
+	public void update(RegistrarVenta registrarVenta) {
+		registrarVentaDao.update(registrarVenta);
+	}
+
+	@Override
+	@Transactional
+	public void delete(int id) {
+		registrarVentaDao.delete(id);
+	}
+
 }

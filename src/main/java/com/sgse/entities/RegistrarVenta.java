@@ -27,94 +27,93 @@ import jakarta.persistence.TemporalType;
 @Table(name = "registrar_venta")
 public class RegistrarVenta implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
-    @EmbeddedId
-    private RegistrarVentaPK registrarVentaPK;
-    
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
-    
-    @Column(name = "monto")
-    private int monto;
-    
-    @Column(name = "tipo_venta")
-    private String tipoVenta;
-    
-    @JoinColumn(name = "id_seguro", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Seguro seguro;
-    
-    @JsonIgnoreProperties({"registrar_venta","hibernateLazyInitializer","handler"})
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Usuario usuario;
+	private static final long serialVersionUID = 1L;
 
-    public RegistrarVenta() {
-    }
+	@EmbeddedId
+	private RegistrarVentaPK registrarVentaPK;
 
-    public RegistrarVenta(RegistrarVentaPK registrarVentaPK) {
-        this.registrarVentaPK = registrarVentaPK;
-    }
+	@Column(name = "fecha")
+	@Temporal(TemporalType.DATE)
+	private Date fecha;
 
-    public RegistrarVenta(RegistrarVentaPK registrarVentaPK, Date fecha, int monto) {
-        this.registrarVentaPK = registrarVentaPK;
-        this.fecha = fecha;
-        this.monto = monto;
-    }
+	@Column(name = "monto")
+	private int monto;
 
-    public RegistrarVenta(int idUsuario, int idSeguro) {
-        this.registrarVentaPK = new RegistrarVentaPK(idUsuario, idSeguro);
-    }
+	@Column(name = "tipo_venta")
+	private String tipoVenta;
 
-    public RegistrarVentaPK getRegistrarVentaPK() {
-        return registrarVentaPK;
-    }
+	@JoinColumn(name = "id_seguro", referencedColumnName = "id", insertable = false, updatable = false)
+	@ManyToOne(optional = false)
+	private Seguro seguro;
 
-    public void setRegistrarVentaPK(RegistrarVentaPK registrarVentaPK) {
-        this.registrarVentaPK = registrarVentaPK;
-    }
+	@JsonIgnoreProperties({ "registrar_venta", "hibernateLazyInitializer", "handler" })
+	@JoinColumn(name = "id_usuario", referencedColumnName = "id", insertable = false, updatable = false)
+	@ManyToOne(optional = false)
+	private Usuario usuario;
 
-    public Date getFecha() {
-        return fecha;
-    }
+	public RegistrarVenta() {
+	}
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+	public RegistrarVenta(RegistrarVentaPK registrarVentaPK) {
+		this.registrarVentaPK = registrarVentaPK;
+	}
 
-    public int getMonto() {
-        return monto;
-    }
+	public RegistrarVenta(RegistrarVentaPK registrarVentaPK, Date fecha, int monto) {
+		this.registrarVentaPK = registrarVentaPK;
+		this.fecha = fecha;
+		this.monto = monto;
+	}
 
-    public void setMonto(int monto) {
-        this.monto = monto;
-    }
+	public RegistrarVenta(int idUsuario, int idSeguro) {
+		this.registrarVentaPK = new RegistrarVentaPK(idUsuario, idSeguro);
+	}
 
-    public String getTipoVenta() {
-        return tipoVenta;
-    }
+	public RegistrarVentaPK getRegistrarVentaPK() {
+		return registrarVentaPK;
+	}
 
-    public void setTipoVenta(String tipoVenta) {
-        this.tipoVenta = tipoVenta;
-    }
+	public void setRegistrarVentaPK(RegistrarVentaPK registrarVentaPK) {
+		this.registrarVentaPK = registrarVentaPK;
+	}
 
-    public Seguro getSeguro() {
-        return seguro;
-    }
+	public Date getFecha() {
+		return fecha;
+	}
 
-    public void setSeguro(Seguro seguro) {
-        this.seguro = seguro;
-    }
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+	public int getMonto() {
+		return monto;
+	}
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+	public void setMonto(int monto) {
+		this.monto = monto;
+	}
 
-  
+	public String getTipoVenta() {
+		return tipoVenta;
+	}
+
+	public void setTipoVenta(String tipoVenta) {
+		this.tipoVenta = tipoVenta;
+	}
+
+	public Seguro getSeguro() {
+		return seguro;
+	}
+
+	public void setSeguro(Seguro seguro) {
+		this.seguro = seguro;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 }

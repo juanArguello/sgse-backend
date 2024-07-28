@@ -26,83 +26,83 @@ import jakarta.persistence.Table;
 @Table(name = "reporte")
 public class Reporte implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Float id;
-    
-    @Column(name = "descripcion")
-    private String descripcion;
-    
-    @Column(name = "tipo_seguro")
-    private String tipoSeguro;
-    
-    @Column(name = "tipo_servicio")
-    private String tipoServicio;
-    
-    @Column(name = "observacion")
-    private String observacion;
-    
-    @ManyToMany(mappedBy = "reporteList")
-    private List<Inventario> inventarioList;
+	private static final long serialVersionUID = 1L;
+	// @Max(value=?) @Min(value=?)//if you know range of your decimal fields
+	// consider using these annotations to enforce field validation
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private Float id;
 
-    public Reporte() {
-        this.inventarioList = new ArrayList<>();
-    }
+	@Column(name = "descripcion")
+	private String descripcion;
 
-    public Reporte(Float id) {
-        this.id = id;
-    }
+	@Column(name = "tipo_seguro")
+	private String tipoSeguro;
 
-    public Float getId() {
-        return id;
-    }
+	@Column(name = "tipo_servicio")
+	private String tipoServicio;
 
-    public void setId(Float id) {
-        this.id = id;
-    }
+	@Column(name = "observacion")
+	private String observacion;
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	@ManyToMany(mappedBy = "reporteList")
+	private List<Inventario> inventarioList;
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public Reporte() {
+		this.inventarioList = new ArrayList<>();
+	}
 
-    public String getTipoSeguro() {
-        return tipoSeguro;
-    }
+	public Reporte(Float id) {
+		this.id = id;
+	}
 
-    public void setTipoSeguro(String tipoSeguro) {
-        this.tipoSeguro = tipoSeguro;
-    }
+	public Float getId() {
+		return id;
+	}
 
-    public String getTipoServicio() {
-        return tipoServicio;
-    }
+	public void setId(Float id) {
+		this.id = id;
+	}
 
-    public void setTipoServicio(String tipoServicio) {
-        this.tipoServicio = tipoServicio;
-    }
+	public String getDescripcion() {
+		return descripcion;
+	}
 
-    public String getObservacion() {
-        return observacion;
-    }
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-    public void setObservacion(String observacion) {
-        this.observacion = observacion;
-    }
+	public String getTipoSeguro() {
+		return tipoSeguro;
+	}
 
-    public List<Inventario> getInventarioList() {
-        return Collections.unmodifiableList(inventarioList);
-    }
+	public void setTipoSeguro(String tipoSeguro) {
+		this.tipoSeguro = tipoSeguro;
+	}
 
-    public void setInventarioList(List<Inventario> inventarioList) {
-        this.inventarioList = inventarioList;
-    }
+	public String getTipoServicio() {
+		return tipoServicio;
+	}
 
-    
+	public void setTipoServicio(String tipoServicio) {
+		this.tipoServicio = tipoServicio;
+	}
+
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+
+	public List<Inventario> getInventarioList() {
+		return Collections.unmodifiableList(inventarioList);
+	}
+
+	public void setInventarioList(List<Inventario> inventarioList) {
+		this.inventarioList = inventarioList;
+	}
+
 }

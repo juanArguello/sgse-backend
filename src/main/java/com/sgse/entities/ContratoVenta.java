@@ -30,152 +30,152 @@ import jakarta.persistence.TemporalType;
 @Table(name = "contrato_venta")
 public class ContratoVenta implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer id;
-    
-    @Column(name = "cedula")
-    private int cedula;
-    
-    @Column(name = "nombre_cliente")
-    private String nombreCliente;
-    
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
-    
-    @Column(name = "paquete_seguro")
-    private String paqueteSeguro;
-    
-    @Column(name = "costo")
-    private int costo;
-    
-    @Column(name = "tipo_pago")
-    private int tipoPago;
-    
-    @Column(name = "observacion")
-    private String observacion;
-    
-    @Column(name = "modo_pago")
-    private String modoPago;
-    
-    @Column(name = "tipo_servicio")
-    private String tipoServicio;
-    
-    @JsonIgnoreProperties({"contrato_venta","hibernateLazyInitializer","handler"})
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
-    @ManyToOne(fetch=FetchType.LAZY)
-    private Usuario idUsuario;
+	private static final long serialVersionUID = 1L;
 
-    public ContratoVenta() {
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private Integer id;
 
-    public ContratoVenta(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "cedula")
+	private int cedula;
 
-    public ContratoVenta(Integer id, int cedula, String nombreCliente, Date fecha, String paqueteSeguro, int costo, int tipoPago, String modoPago, String tipoServicio) {
-        this.id = id;
-        this.cedula = cedula;
-        this.nombreCliente = nombreCliente;
-        this.fecha = fecha;
-        this.paqueteSeguro = paqueteSeguro;
-        this.costo = costo;
-        this.tipoPago = tipoPago;
-        this.modoPago = modoPago;
-        this.tipoServicio = tipoServicio;
-    }
+	@Column(name = "nombre_cliente")
+	private String nombreCliente;
 
-    public Integer getId() {
-        return id;
-    }
+	@Column(name = "fecha")
+	@Temporal(TemporalType.DATE)
+	private Date fecha;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "paquete_seguro")
+	private String paqueteSeguro;
 
-    public int getCedula() {
-        return cedula;
-    }
+	@Column(name = "costo")
+	private int costo;
 
-    public void setCedula(int cedula) {
-        this.cedula = cedula;
-    }
+	@Column(name = "tipo_pago")
+	private int tipoPago;
 
-    public String getNombreCliente() {
-        return nombreCliente;
-    }
+	@Column(name = "observacion")
+	private String observacion;
 
-    public void setNombreCliente(String nombreCliente) {
-        this.nombreCliente = nombreCliente;
-    }
+	@Column(name = "modo_pago")
+	private String modoPago;
 
-    public Date getFecha() {
-        return fecha;
-    }
+	@Column(name = "tipo_servicio")
+	private String tipoServicio;
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+	@JsonIgnoreProperties({ "contrato_venta", "hibernateLazyInitializer", "handler" })
+	@JoinColumn(name = "id_usuario", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Usuario idUsuario;
 
-    public String getPaqueteSeguro() {
-        return paqueteSeguro;
-    }
+	public ContratoVenta() {
+	}
 
-    public void setPaqueteSeguro(String paqueteSeguro) {
-        this.paqueteSeguro = paqueteSeguro;
-    }
+	public ContratoVenta(Integer id) {
+		this.id = id;
+	}
 
-    public int getCosto() {
-        return costo;
-    }
+	public ContratoVenta(Integer id, int cedula, String nombreCliente, Date fecha, String paqueteSeguro, int costo,
+			int tipoPago, String modoPago, String tipoServicio) {
+		this.id = id;
+		this.cedula = cedula;
+		this.nombreCliente = nombreCliente;
+		this.fecha = fecha;
+		this.paqueteSeguro = paqueteSeguro;
+		this.costo = costo;
+		this.tipoPago = tipoPago;
+		this.modoPago = modoPago;
+		this.tipoServicio = tipoServicio;
+	}
 
-    public void setCosto(int costo) {
-        this.costo = costo;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public int getTipoPago() {
-        return tipoPago;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setTipoPago(int tipoPago) {
-        this.tipoPago = tipoPago;
-    }
+	public int getCedula() {
+		return cedula;
+	}
 
-    public String getObservacion() {
-        return observacion;
-    }
+	public void setCedula(int cedula) {
+		this.cedula = cedula;
+	}
 
-    public void setObservacion(String observacion) {
-        this.observacion = observacion;
-    }
+	public String getNombreCliente() {
+		return nombreCliente;
+	}
 
-    public String getModoPago() {
-        return modoPago;
-    }
+	public void setNombreCliente(String nombreCliente) {
+		this.nombreCliente = nombreCliente;
+	}
 
-    public void setModoPago(String modoPago) {
-        this.modoPago = modoPago;
-    }
+	public Date getFecha() {
+		return fecha;
+	}
 
-    public String getTipoServicio() {
-        return tipoServicio;
-    }
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 
-    public void setTipoServicio(String tipoServicio) {
-        this.tipoServicio = tipoServicio;
-    }
+	public String getPaqueteSeguro() {
+		return paqueteSeguro;
+	}
 
-    public Usuario getIdUsuario() {
-        return idUsuario;
-    }
+	public void setPaqueteSeguro(String paqueteSeguro) {
+		this.paqueteSeguro = paqueteSeguro;
+	}
 
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
-    }
+	public int getCosto() {
+		return costo;
+	}
 
-    
+	public void setCosto(int costo) {
+		this.costo = costo;
+	}
+
+	public int getTipoPago() {
+		return tipoPago;
+	}
+
+	public void setTipoPago(int tipoPago) {
+		this.tipoPago = tipoPago;
+	}
+
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+
+	public String getModoPago() {
+		return modoPago;
+	}
+
+	public void setModoPago(String modoPago) {
+		this.modoPago = modoPago;
+	}
+
+	public String getTipoServicio() {
+		return tipoServicio;
+	}
+
+	public void setTipoServicio(String tipoServicio) {
+		this.tipoServicio = tipoServicio;
+	}
+
+	public Usuario getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Usuario idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
 }

@@ -18,40 +18,40 @@ import com.sgse.entities.Seguro;
  * @version 1.0
  */
 @Service(value = "seguroService")
-public class SeguroServiceImpl implements SeguroService{
+public class SeguroServiceImpl implements SeguroService {
 
-    @Autowired
-    private SeguroDao seguroDao;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(Seguro seguro) {
-        seguroDao.create(seguro);
-    }
+	@Autowired
+	private SeguroDao seguroDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public Seguro findById(int id) {
-        return seguroDao.findById(id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(Seguro seguro) {
+		seguroDao.create(seguro);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Seguro> findAll() {
-        return seguroDao.findAll();
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public Seguro findById(int id) {
+		return seguroDao.findById(id);
+	}
 
-    @Override
-    @Transactional
-    public void update(Seguro seguro) {
-        seguroDao.update(seguro);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<Seguro> findAll() {
+		return seguroDao.findAll();
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        seguroDao.delete(id);
-    }
-    
+	@Override
+	@Transactional
+	public void update(Seguro seguro) {
+		seguroDao.update(seguro);
+	}
+
+	@Override
+	@Transactional
+	public void delete(int id) {
+		seguroDao.delete(id);
+	}
+
 }

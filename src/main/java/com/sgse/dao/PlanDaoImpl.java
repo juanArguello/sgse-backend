@@ -19,37 +19,36 @@ import com.sgse.entities.Plan;
  * @version 1.0
  */
 @Repository(value = "planDao")
-public class PlanDaoImpl implements PlanDao{
-    
-    @Autowired
-    private SessionFactory sessionFactory;
+public class PlanDaoImpl implements PlanDao {
 
-    // Implementacion de los metodos CRUD
-    @Override
-    public void create(Plan plan) {
-       sessionFactory.getCurrentSession()
-            .persist(plan);
-    }
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    @Override
-    public Plan findById(int id) {
-        return sessionFactory.getCurrentSession().get(Plan.class, id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	public void create(Plan plan) {
+		sessionFactory.getCurrentSession().persist(plan);
+	}
 
-    @Override
-    public List<Plan> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Plan p order by p.id asc", Plan.class).getResultList();
-    }
-        
-    @Override
-    public void update(Plan plan) {
-        sessionFactory.getCurrentSession().merge(plan);
-    }
+	@Override
+	public Plan findById(int id) {
+		return sessionFactory.getCurrentSession().get(Plan.class, id);
+	}
 
-    @Override
-    public void delete(int id) {
-        sessionFactory.getCurrentSession()
-            .remove(sessionFactory.getCurrentSession().get(Plan.class, id));
-    }
-    
+	@Override
+	public List<Plan> findAll() {
+		return sessionFactory.getCurrentSession().createQuery("from Plan p order by p.id asc", Plan.class)
+				.getResultList();
+	}
+
+	@Override
+	public void update(Plan plan) {
+		sessionFactory.getCurrentSession().merge(plan);
+	}
+
+	@Override
+	public void delete(int id) {
+		sessionFactory.getCurrentSession().remove(sessionFactory.getCurrentSession().get(Plan.class, id));
+	}
+
 }

@@ -17,38 +17,36 @@ import com.sgse.entities.Compra;
  * @version 1.0
  */
 @Repository("compraDao")
-public class CompraDaoImpl implements CompraDao{
+public class CompraDaoImpl implements CompraDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    public void create(Compra compra) {
-        sessionFactory.getCurrentSession()
-            .persist(compra);
-    }
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    @Override
-    public Compra findById(int id) {
-        return sessionFactory.getCurrentSession().get(Compra.class, id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	public void create(Compra compra) {
+		sessionFactory.getCurrentSession().persist(compra);
+	}
 
-    @Override
-    public List<Compra> findAll() {
-        return sessionFactory.getCurrentSession()
-        		.createQuery("from Compra c order by c.id asc", Compra.class).getResultList();
-    }
+	@Override
+	public Compra findById(int id) {
+		return sessionFactory.getCurrentSession().get(Compra.class, id);
+	}
 
-    @Override
-    public void update(Compra compra) {
-        sessionFactory.getCurrentSession().merge(compra);
-    }
+	@Override
+	public List<Compra> findAll() {
+		return sessionFactory.getCurrentSession().createQuery("from Compra c order by c.id asc", Compra.class)
+				.getResultList();
+	}
 
-    @Override
-    public void delete(int id) {
-        sessionFactory.getCurrentSession()
-            .remove(sessionFactory.getCurrentSession().get(Compra.class, id));
-    }
-    
+	@Override
+	public void update(Compra compra) {
+		sessionFactory.getCurrentSession().merge(compra);
+	}
+
+	@Override
+	public void delete(int id) {
+		sessionFactory.getCurrentSession().remove(sessionFactory.getCurrentSession().get(Compra.class, id));
+	}
+
 }

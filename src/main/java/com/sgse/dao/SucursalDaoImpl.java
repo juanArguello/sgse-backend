@@ -17,37 +17,36 @@ import com.sgse.entities.Sucursal;
  * @version 1.0
  */
 @Repository("sucursalDao")
-public class SucursalDaoImpl implements SucursalDao{
-    
-    @Autowired
-    private SessionFactory sessionFactory;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    public void create(Sucursal sucursal) {
-        sessionFactory.getCurrentSession()
-            .persist(sucursal);
-    }
+public class SucursalDaoImpl implements SucursalDao {
 
-    @Override
-    public Sucursal findById(int id) {
-        return sessionFactory.getCurrentSession().get(Sucursal.class, id);
-    }
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    @Override
-    public List<Sucursal> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Sucursal s order by s.id asc", Sucursal.class).getResultList();
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	public void create(Sucursal sucursal) {
+		sessionFactory.getCurrentSession().persist(sucursal);
+	}
 
-    @Override
-    public void update(Sucursal sucursal) {
-        sessionFactory.getCurrentSession().merge(sucursal);
-    }
+	@Override
+	public Sucursal findById(int id) {
+		return sessionFactory.getCurrentSession().get(Sucursal.class, id);
+	}
 
-    @Override
-    public void delete(int id) {
-        sessionFactory.getCurrentSession()
-            .remove(sessionFactory.getCurrentSession().get(Sucursal.class, id));
-    }
-   
+	@Override
+	public List<Sucursal> findAll() {
+		return sessionFactory.getCurrentSession().createQuery("from Sucursal s order by s.id asc", Sucursal.class)
+				.getResultList();
+	}
+
+	@Override
+	public void update(Sucursal sucursal) {
+		sessionFactory.getCurrentSession().merge(sucursal);
+	}
+
+	@Override
+	public void delete(int id) {
+		sessionFactory.getCurrentSession().remove(sessionFactory.getCurrentSession().get(Sucursal.class, id));
+	}
+
 }

@@ -17,37 +17,36 @@ import com.sgse.entities.Factura;
  * @version 1.0
  */
 @Repository("facturaDao")
-public class FacturaDaoImpl implements FacturaDao{
+public class FacturaDaoImpl implements FacturaDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    public void create(Factura factura) {
-        sessionFactory.getCurrentSession()
-            .persist(factura);
-    }
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    @Override
-    public Factura findById(int id) {
-        return sessionFactory.getCurrentSession().get(Factura.class, id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	public void create(Factura factura) {
+		sessionFactory.getCurrentSession().persist(factura);
+	}
 
-    @Override
-    public List<Factura> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Factura f order by f.id asc", Factura.class).getResultList();
-    }
+	@Override
+	public Factura findById(int id) {
+		return sessionFactory.getCurrentSession().get(Factura.class, id);
+	}
 
-    @Override
-    public void update(Factura factura) {
-        sessionFactory.getCurrentSession().merge(factura);
-    }
+	@Override
+	public List<Factura> findAll() {
+		return sessionFactory.getCurrentSession().createQuery("from Factura f order by f.id asc", Factura.class)
+				.getResultList();
+	}
 
-    @Override
-    public void delete(int id) {
-        sessionFactory.getCurrentSession()
-            .remove(sessionFactory.getCurrentSession().get(Factura.class, id));
-    }
-    
+	@Override
+	public void update(Factura factura) {
+		sessionFactory.getCurrentSession().merge(factura);
+	}
+
+	@Override
+	public void delete(int id) {
+		sessionFactory.getCurrentSession().remove(sessionFactory.getCurrentSession().get(Factura.class, id));
+	}
+
 }

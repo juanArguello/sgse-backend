@@ -21,41 +21,39 @@ import jakarta.persistence.TypedQuery;
  * @version 1.0
  */
 @Repository("clienteDao")
-public class ClienteDaoImpl implements ClienteDao{
+public class ClienteDaoImpl implements ClienteDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    // Implementacion de los metodos CRUD
-    @Override
-    public void create(Cliente cliente) {
-        sessionFactory.getCurrentSession()
-            .persist(cliente);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	public void create(Cliente cliente) {
+		sessionFactory.getCurrentSession().persist(cliente);
+	}
 
-    @Override
-    public Cliente findById(int id) {
-        return sessionFactory.getCurrentSession().get(Cliente.class, id);
-    }
+	@Override
+	public Cliente findById(int id) {
+		return sessionFactory.getCurrentSession().get(Cliente.class, id);
+	}
 
-    @Override
-    public List<Cliente> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Cliente  s order by s.id asc", Cliente.class).getResultList();
-    }
-    
-    public Paginacion<Cliente> getClientesPaginado(int numeroPagina, int tamanhoPagina) {
+	@Override
+	public List<Cliente> findAll() {
+		return sessionFactory.getCurrentSession().createQuery("from Cliente  s order by s.id asc", Cliente.class)
+				.getResultList();
+	}
+
+	public Paginacion<Cliente> getClientesPaginado(int numeroPagina, int tamanhoPagina) {
 		int ultimoNumeroPagina;
 		Long totalRegistros;
-		totalRegistros = sessionFactory.getCurrentSession()
-				.createQuery("SELECT COUNT(c.id) from Cliente c", Long.class)
+		totalRegistros = sessionFactory.getCurrentSession().createQuery("SELECT COUNT(c.id) from Cliente c", Long.class)
 				.getSingleResult();
 		if (totalRegistros % tamanhoPagina == 0) {
 			ultimoNumeroPagina = (int) (totalRegistros / tamanhoPagina);
 		} else {
 			ultimoNumeroPagina = (int) (totalRegistros / tamanhoPagina) + 1;
 		}
-		TypedQuery<Cliente> query = sessionFactory.getCurrentSession()
-				.createQuery("from Cliente c order by c.id asc",
+		TypedQuery<Cliente> query = sessionFactory.getCurrentSession().createQuery("from Cliente c order by c.id asc",
 				Cliente.class);
 
 		query.setFirstResult((numeroPagina - 1) * tamanhoPagina);
@@ -69,22 +67,20 @@ public class ClienteDaoImpl implements ClienteDao{
 		return resultado;
 	}
 
-    @Override
-    public void update(Cliente cliente) {
-        sessionFactory.getCurrentSession().merge(cliente);
-    }
+	@Override
+	public void update(Cliente cliente) {
+		sessionFactory.getCurrentSession().merge(cliente);
+	}
 
-    @Override
-    public void delete(int id) {
-        sessionFactory.getCurrentSession()
-        	.remove(sessionFactory.getCurrentSession().get(Cliente.class, id));
-    }
+	@Override
+	public void delete(int id) {
+		sessionFactory.getCurrentSession().remove(sessionFactory.getCurrentSession().get(Cliente.class, id));
+	}
 
-    @Override
-    public int cantidadClientes() {
-        return sessionFactory.getCurrentSession()
-        		.createQuery("select count(*) from Cliente c",Long.class)
-        		.getSingleResult().intValue();
-    }
-    
+	@Override
+	public int cantidadClientes() {
+		return sessionFactory.getCurrentSession().createQuery("select count(*) from Cliente c", Long.class)
+				.getSingleResult().intValue();
+	}
+
 }

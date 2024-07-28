@@ -18,40 +18,40 @@ import com.sgse.entities.Factura;
  * @version 1.0
  */
 @Service(value = "facturaService")
-public class FacturaServiceImpl implements FacturaService{
+public class FacturaServiceImpl implements FacturaService {
 
-    @Autowired
-    private FacturaDao facturaDao;
-    
-    // Implementacion de los metodos CRUD
-    @Override
-    @Transactional
-    public void create(Factura factura) {
-        facturaDao.create(factura);
-    }
+	@Autowired
+	private FacturaDao facturaDao;
 
-    @Override
-    @Transactional(readOnly = true)
-    public Factura findById(int id) {
-        return facturaDao.findById(id);
-    }
+	// Implementacion de los metodos CRUD
+	@Override
+	@Transactional
+	public void create(Factura factura) {
+		facturaDao.create(factura);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Factura> findAll() {
-        return facturaDao.findAll();
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public Factura findById(int id) {
+		return facturaDao.findById(id);
+	}
 
-    @Override
-    @Transactional
-    public void update(Factura factura) {
-        facturaDao.update(factura);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<Factura> findAll() {
+		return facturaDao.findAll();
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        facturaDao.delete(id);
-    }
-    
+	@Override
+	@Transactional
+	public void update(Factura factura) {
+		facturaDao.update(factura);
+	}
+
+	@Override
+	@Transactional
+	public void delete(int id) {
+		facturaDao.delete(id);
+	}
+
 }

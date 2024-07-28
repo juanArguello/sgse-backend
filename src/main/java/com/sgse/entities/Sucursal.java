@@ -27,90 +27,89 @@ import jakarta.persistence.Table;
 @Table(name = "sucursal")
 public class Sucursal implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer id;
-    
-    @Column(name = "direccion")
-    private String direccion;
-    
-    @Column(name = "localidad")
-    private String localidad;
-    
-    @Column(name = "telefono")
-    private String telefono;
-    
-    @Column(name = "estado")
-    private String estado;
-    
-    @JsonIgnoreProperties({"sucursal","hibernateLazyInitializer","handler"})
-    @JoinColumn(name = "id_empresa", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Empresa idEmpresa;
+	private static final long serialVersionUID = 1L;
 
-    public Sucursal() {
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private Integer id;
 
-    public Sucursal(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "direccion")
+	private String direccion;
 
-    public Sucursal(Integer id, String direccion, String localidad) {
-        this.id = id;
-        this.direccion = direccion;
-        this.localidad = localidad;
-    }
+	@Column(name = "localidad")
+	private String localidad;
 
-    public Integer getId() {
-        return id;
-    }
+	@Column(name = "telefono")
+	private String telefono;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "estado")
+	private String estado;
 
-    public String getDireccion() {
-        return direccion;
-    }
+	@JsonIgnoreProperties({ "sucursal", "hibernateLazyInitializer", "handler" })
+	@JoinColumn(name = "id_empresa", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Empresa idEmpresa;
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
+	public Sucursal() {
+	}
 
-    public String getLocalidad() {
-        return localidad;
-    }
+	public Sucursal(Integer id) {
+		this.id = id;
+	}
 
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
-    }
+	public Sucursal(Integer id, String direccion, String localidad) {
+		this.id = id;
+		this.direccion = direccion;
+		this.localidad = localidad;
+	}
 
-    public String getTelefono() {
-        return telefono;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getEstado() {
-        return estado;
-    }
+	public String getDireccion() {
+		return direccion;
+	}
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 
-    public Empresa getIdEmpresa() {
-        return idEmpresa;
-    }
+	public String getLocalidad() {
+		return localidad;
+	}
 
-    public void setIdEmpresa(Empresa idEmpresa) {
-        this.idEmpresa = idEmpresa;
-    }
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+	}
 
-    
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public Empresa getIdEmpresa() {
+		return idEmpresa;
+	}
+
+	public void setIdEmpresa(Empresa idEmpresa) {
+		this.idEmpresa = idEmpresa;
+	}
+
 }

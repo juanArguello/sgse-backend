@@ -13,10 +13,14 @@ import com.sgse.entities.Inventario;
  * @version 1.0
  */
 public interface InventarioService {
-    // Definicion de los metodos CRUD de la interfaz InventarioService
-    public void create(Inventario inventario);
-    public Inventario findById(int id);  
-    public List<Inventario> findAll();
-    public void update(Inventario inventario);
-    public void delete(int id);
+	// Definicion de los metodos CRUD de la interfaz InventarioService
+	public void create(Inventario inventario);
+
+	public Inventario findById(int id);
+
+	public List<Inventario> findAll();
+
+	public void update(Inventario inventario);
+
+	public void delete(int id);
 }

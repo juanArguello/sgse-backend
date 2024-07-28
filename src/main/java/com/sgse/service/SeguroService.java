@@ -13,10 +13,14 @@ import com.sgse.entities.Seguro;
  * @version 1.0
  */
 public interface SeguroService {
-    // Definicion de los metodos CRUD de la interfaz SeguroService
-    public void create(Seguro seguro);
-    public Seguro findById(int id);  
-    public List<Seguro> findAll();
-    public void update(Seguro seguro);
-    public void delete(int id);
+	// Definicion de los metodos CRUD de la interfaz SeguroService
+	public void create(Seguro seguro);
+
+	public Seguro findById(int id);
+
+	public List<Seguro> findAll();
+
+	public void update(Seguro seguro);
+
+	public void delete(int id);
 }
